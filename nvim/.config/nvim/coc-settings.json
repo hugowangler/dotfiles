@@ -1,0 +1,24 @@
+{
+	"coc.preferences.formatOnSaveFiletypes": ["json"],
+	"languageserver": {
+		"haskell": {
+  	  "command": "~/.local/bin/hie",
+			"args": ["--lsp"],
+  	  "rootPatterns": [
+  	    "stack.yaml",
+  	    "cabal.project",
+  	    "package.yaml"
+  	  ],
+  	  "filetypes": [
+  	    "hs",
+  	    "lhs",
+  	    "haskell"
+  	  ],
+  	  "initializationOptions": {
+  	    "languageServerHaskell": {
+					"hlintOn": true
+  	    }
+  	  }
+  	}
+	}
+}
