@@ -4,6 +4,13 @@ export ZSH=$HOME/dotfiles/zsh/oh-my-zsh
 # include z
 . ~/z.sh
 
+# aliases
+alias d="docker"
+alias dc="docker-compose"
+alias s="sudo"
+alias dcopc="docker-compose -f docker-compose-check.yml up --build"
+alias dcopd="docker-compose -f docker-compose-dev.yml up --build"
+
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git z)
 
