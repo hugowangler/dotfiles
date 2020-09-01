@@ -10,6 +10,8 @@ alias dc="docker-compose"
 alias s="sudo"
 alias dcopc="docker-compose -f docker-compose-check.yml up --build"
 alias dcopd="docker-compose -f docker-compose-dev.yml up --build"
+alias vim="nvim"
+alias vi="nvim"
 
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git z)
