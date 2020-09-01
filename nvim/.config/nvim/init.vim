@@ -10,6 +10,7 @@ set shiftwidth=2
 set expandtab
 set updatetime=200
 set hidden
+set termguicolors "Enable true colors
 filetype plugin indent on
 syntax on
 au FileType perl set filetype=prolog
@@ -28,6 +29,7 @@ call plug#begin('~/.local/share/nvim/plugged/')
   Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
   Plug 'honza/vim-snippets'
   Plug 'christoomey/vim-tmux-navigator' 
+  Plug 'whatyouhide/vim-gotham'
   
   " Haskell
   Plug 'neovimhaskell/haskell-vim'
@@ -39,4 +41,6 @@ augroup vimrchook
     au!
     autocmd bufwritepost $MYVIMRC source $MYVIMRC
 augroup END
+
+colorscheme gotham
 
