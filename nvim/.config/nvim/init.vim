@@ -20,15 +20,18 @@ let mapleader="§"
 nnoremap <silent> <leader>? :WhichKey '§'<CR>
 
 call plug#begin('~/.local/share/nvim/plugged/')
-    Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': ':CocInstall coc-python coc-json coc-prettier coc-snippets'}
-    Plug 'jiangmiao/auto-pairs'
-    Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
-    Plug 'honza/vim-snippets'
-    Plug 'christoomey/vim-tmux-navigator' 
-    
-    " Haskell
-    Plug 'neovimhaskell/haskell-vim'
-    Plug 'sbdchd/neoformat'
+  Plug 'neoclide/coc.nvim', {
+    \ 'branch': 'release',
+    \ 'do': { -> #coc#util#install() }
+  \}
+  Plug 'jiangmiao/auto-pairs'
+  Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+  Plug 'honza/vim-snippets'
+  Plug 'christoomey/vim-tmux-navigator' 
+  
+  " Haskell
+  Plug 'neovimhaskell/haskell-vim'
+  Plug 'sbdchd/neoformat'
 call plug#end()
 
 " Reload config when saved

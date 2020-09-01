@@ -2,6 +2,19 @@
 """"""""""""""""""""""
 let g:coc_snippet_next = '<c-l>'
 let g:coc_snippet_prev = '<c-h>'
+let g:coc_global_extensions = [
+			\ 'coc-tsserver',
+			\ 'coc-python',
+			\ 'coc-json',
+			\ 'coc-eslint',
+			\ 'coc-prettier',
+			\ 'coc-css',
+			\ 'coc-html',
+			\ 'coc-snippets',
+			\ 'coc-yaml',
+			\ 'coc-vimlsp',
+			\ 'coc-go'
+			\]
 
 "To code navigatione <cr> to confirm completion, `<C-g>u` means break undo chain at current
 " position. Coc only does snippet and additional edit on confirm.

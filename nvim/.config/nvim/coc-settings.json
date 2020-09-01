@@ -1,5 +1,5 @@
 {
-	"coc.preferences.formatOnSaveFiletypes": ["json"],
+	"coc.preferences.formatOnSaveFiletypes": ["json", "go"],
 	"languageserver": {
 		"haskell": {
   	  "command": "~/.local/bin/hie",
