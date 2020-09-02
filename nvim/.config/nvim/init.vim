@@ -9,6 +9,7 @@ set softtabstop=2
 set shiftwidth=2
 set expandtab
 set updatetime=200
+set colorcolumn=80
 set hidden
 set termguicolors "Enable true colors
 filetype plugin indent on
@@ -30,7 +31,11 @@ call plug#begin('~/.local/share/nvim/plugged/')
   Plug 'honza/vim-snippets'
   Plug 'christoomey/vim-tmux-navigator' 
   Plug 'whatyouhide/vim-gotham'
-  
+
+  "Airline
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+
   " Haskell
   Plug 'neovimhaskell/haskell-vim'
   Plug 'sbdchd/neoformat'
