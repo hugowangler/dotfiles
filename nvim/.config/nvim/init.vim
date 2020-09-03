@@ -21,6 +21,9 @@ let mapleader="§"
 
 nnoremap <silent> <leader>? :WhichKey '§'<CR>
 
+" open NERDTree
+map <leader>e :NERDTreeToggle<CR>
+
 call plug#begin('~/.local/share/nvim/plugged/')
   Plug 'neoclide/coc.nvim', {
     \ 'branch': 'release',
@@ -30,11 +33,23 @@ call plug#begin('~/.local/share/nvim/plugged/')
   Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
   Plug 'honza/vim-snippets'
   Plug 'christoomey/vim-tmux-navigator' 
-  Plug 'whatyouhide/vim-gotham'
+  Plug 'ryanoasis/vim-devicons'
+
+  "Gotham colorscheme
+  "Plug 'whatyouhide/vim-gotham'
 
   "Airline
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
+
+  "TmuxLine
+  Plug 'edkolev/tmuxline.vim'
+
+  "CtrlP
+  Plug 'ctrlpvim/ctrlp.vim'
+
+  "NerdTree
+  Plug 'preservim/nerdtree'
 
   " Haskell
   Plug 'neovimhaskell/haskell-vim'
@@ -47,5 +62,5 @@ augroup vimrchook
     autocmd bufwritepost $MYVIMRC source $MYVIMRC
 augroup END
 
-colorscheme gotham
+"colorscheme gotham
 

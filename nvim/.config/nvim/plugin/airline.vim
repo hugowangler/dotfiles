@@ -6,4 +6,5 @@ let g:airline_section_z="%l/%L %c" "line/totallines column
 let g:airline_skip_empty_sections=1
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 let g:airline_solarized_bg="dark"
-let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#buffer_nr_show = 1
