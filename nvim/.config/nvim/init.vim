@@ -35,8 +35,8 @@ call plug#begin('~/.local/share/nvim/plugged/')
   Plug 'christoomey/vim-tmux-navigator' 
   Plug 'ryanoasis/vim-devicons'
 
-  "Gotham colorscheme
-  "Plug 'whatyouhide/vim-gotham'
+  "colorscheme
+  Plug 'joshdick/onedark.vim'
 
   "Airline
   Plug 'vim-airline/vim-airline'
@@ -62,5 +62,6 @@ augroup vimrchook
     autocmd bufwritepost $MYVIMRC source $MYVIMRC
 augroup END
 
-"colorscheme gotham
+colorscheme onedark
+autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE " transparent bg
 

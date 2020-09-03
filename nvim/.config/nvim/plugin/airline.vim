@@ -1,4 +1,4 @@
-let g:airline_theme="solarized"
+let g:airline_theme="onedark"
 let g:airline_powerline_fonts = 1
 let g:airline_section_y="" "Dont show file encoding/format
 let g:airline_section_x="" "Dont show file encoding/format
