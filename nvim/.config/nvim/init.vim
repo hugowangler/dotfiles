@@ -51,6 +51,9 @@ call plug#begin('~/.local/share/nvim/plugged/')
   "NerdTree
   Plug 'preservim/nerdtree'
 
+  "VimFugitive
+  Plug 'tpope/vim-fugitive'
+
   " Haskell
   Plug 'neovimhaskell/haskell-vim'
   Plug 'sbdchd/neoformat'
