@@ -34,6 +34,7 @@ call plug#begin('~/.local/share/nvim/plugged/')
   Plug 'honza/vim-snippets'
   Plug 'christoomey/vim-tmux-navigator' 
   Plug 'ryanoasis/vim-devicons'
+  Plug 'tpope/vim-surround'
 
   "colorscheme
   Plug 'joshdick/onedark.vim'
@@ -66,5 +67,3 @@ augroup vimrchook
 augroup END
 
 colorscheme onedark
-autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE " transparent bg
-
