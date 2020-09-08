@@ -13,7 +13,8 @@ let g:coc_global_extensions = [
 			\ 'coc-snippets',
 			\ 'coc-yaml',
 			\ 'coc-vimlsp',
-			\ 'coc-go'
+			\ 'coc-go',
+      \ 'coc-sh'
 			\]
 
 "To code navigatione <cr> to confirm completion, `<C-g>u` means break undo chain at current
