@@ -35,6 +35,7 @@ call plug#begin('~/.local/share/nvim/plugged/')
   Plug 'christoomey/vim-tmux-navigator' 
   Plug 'ryanoasis/vim-devicons'
   Plug 'tpope/vim-surround'
+  Plug 'vim-test/vim-test'
 
   "colorscheme
   Plug 'joshdick/onedark.vim'
@@ -67,3 +68,5 @@ augroup vimrchook
 augroup END
 
 colorscheme onedark
+highlight Cursorline guibg=Grey15
+highlight ColorColumn guibg=Grey15
