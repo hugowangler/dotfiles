@@ -37,6 +37,10 @@ call plug#begin('~/.local/share/nvim/plugged/')
   Plug 'tpope/vim-surround'
   Plug 'vim-test/vim-test'
 
+  "git
+  Plug 'tpope/vim-fugitive'
+  Plug 'airblade/vim-gitgutter'
+
   "colorscheme
   Plug 'joshdick/onedark.vim'
 
@@ -52,9 +56,6 @@ call plug#begin('~/.local/share/nvim/plugged/')
 
   "NerdTree
   Plug 'preservim/nerdtree'
-
-  "VimFugitive
-  Plug 'tpope/vim-fugitive'
 
   " Haskell
   Plug 'neovimhaskell/haskell-vim'
