@@ -5,6 +5,7 @@ export ZSH=$HOME/dotfiles/zsh/oh-my-zsh
 . ~/z.sh
 
 # aliases
+alias reloadzsh=". ~/.zshrc && echo 'ZSH config reloaded from ~/.zshrc'"
 alias d="docker"
 alias dc="docker-compose"
 alias s="sudo"
@@ -12,6 +13,8 @@ alias dcopc="docker-compose -f docker-compose-check.yml up --build"
 alias dcopd="docker-compose -f docker-compose-dev.yml up --build"
 alias vim="nvim"
 alias vi="nvim"
+alias fbc="black . --check -l 80"
+alias fb="black . -l 80"
 
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git z)
