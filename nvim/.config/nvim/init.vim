@@ -8,7 +8,7 @@ set tabstop=2
 set softtabstop=2
 set shiftwidth=2
 set expandtab
-set updatetime=200
+set updatetime=100
 set colorcolumn=80
 set hidden
 set termguicolors "Enable true colors
