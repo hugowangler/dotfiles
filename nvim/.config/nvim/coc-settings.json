@@ -1,34 +1,37 @@
 {
-	"coc.preferences.formatOnSaveFiletypes": [
+  "coc.preferences.formatOnSaveFiletypes": [
     "json",
     "go",
     "javascript",
     "typescript",
+    "typescriptreact",
+    "typescript.tsx",
     "python",
     "markdown",
     "rust",
     "haskell",
     "yaml"
   ],
-	"languageserver": {
-		"haskell": {
-  	  "command": "~/.local/bin/hie",
-			"args": ["--lsp"],
-  	  "rootPatterns": [
-  	    "stack.yaml",
-  	    "cabal.project",
-  	    "package.yaml"
-  	  ],
-  	  "filetypes": [
-  	    "hs",
-  	    "lhs",
-  	    "haskell"
-  	  ],
-  	  "initializationOptions": {
-  	    "languageServerHaskell": {
-  	      "hlintOn": true
+
+  "eslint.filetypes": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "typescript.tsx"
+  ],
+
+  "languageserver": {
+    "haskell": {
+      "command": "~/.local/bin/hie",
+      "args": ["--lsp"],
+      "rootPatterns": ["stack.yaml", "cabal.project", "package.yaml"],
+      "filetypes": ["hs", "lhs", "haskell"],
+      "initializationOptions": {
+        "languageServerHaskell": {
+          "hlintOn": true
         }
-  	  }
-  	}
-	}
+      }
+    }
+  }
 }

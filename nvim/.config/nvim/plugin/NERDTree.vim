@@ -8,3 +8,5 @@ let g:NERDTreeSortHiddenFirst=0
 let g:NERDTreeQuitOnOpen=1
 " Show line number
 let g:NERDTreeShowLineNumbers=1
+
+let NERDTreeIgnore = ['\.pyc$', '\.pytest_cache$[[dir]]', '__pycache__$[[dir]]', '\.git$[[dir]]']

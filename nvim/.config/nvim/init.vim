@@ -56,6 +56,7 @@ call plug#begin('~/.local/share/nvim/plugged/')
 
   "NerdTree
   Plug 'preservim/nerdtree'
+  Plug 'Xuyuanp/nerdtree-git-plugin'
 
   " Haskell
   Plug 'neovimhaskell/haskell-vim'

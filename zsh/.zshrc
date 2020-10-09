@@ -16,6 +16,9 @@ alias vim="nvim"
 alias vi="nvim"
 alias fbc="black . --check -l 80"
 alias fb="black . -l 80"
+alias gotest="go test ./... -coverprofile=coverage.out"
+alias gotchtml="go tool cover -html=coverage.out"
+alias gotcfn="go tool cover -func coverage.out"
 
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git z)
