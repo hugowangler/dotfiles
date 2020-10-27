@@ -36,14 +36,14 @@ source $HOME/dotfiles/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/banunkers/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/home/hugo/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/banunkers/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/banunkers/anaconda3/etc/profile.d/conda.sh"
+    if [ -f "/home/hugo/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/hugo/miniconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/home/banunkers/anaconda3/bin:$PATH"
+        export PATH="/home/hugo/miniconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
@@ -51,3 +51,11 @@ unset __conda_setup
 #
 # Dont auto start conda
 conda config --set auto_activate_base false
+
+# pyenv path
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi

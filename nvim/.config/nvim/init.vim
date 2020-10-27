@@ -70,5 +70,5 @@ augroup vimrchook
 augroup END
 
 colorscheme onedark
-highlight Cursorline guibg=Grey15
-highlight ColorColumn guibg=Grey15
+"highlight Cursorline guibg=Grey15
+"highlight ColorColumn guibg=Grey15
