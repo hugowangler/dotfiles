@@ -1,0 +1,2 @@
+[alias]
+	sla = log --oneline --decorate --graph --all -20
