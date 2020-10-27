@@ -36,6 +36,13 @@ call plug#begin('~/.local/share/nvim/plugged/')
   Plug 'ryanoasis/vim-devicons'
   Plug 'tpope/vim-surround'
   Plug 'vim-test/vim-test'
+  Plug 'tpope/vim-commentary'
+
+  " Syntax highlighting
+  Plug 'leafgarland/typescript-vim'
+  Plug 'peitalin/vim-jsx-typescript'
+  Plug 'Yggdroot/indentLine'
+  Plug 'jparise/vim-graphql'
 
   "git
   Plug 'tpope/vim-fugitive'
@@ -68,6 +75,10 @@ augroup vimrchook
     au!
     autocmd bufwritepost $MYVIMRC source $MYVIMRC
 augroup END
+
+autocmd BufEnter *.ts set filetype=typescript
+"autocmd BufEnter *.tsx set filetype=typescript.tsx
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
 
 colorscheme onedark
 "highlight Cursorline guibg=Grey15

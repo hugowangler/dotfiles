@@ -5,6 +5,7 @@
     "javascript",
     "typescript",
     "typescriptreact",
+    "javascriptreact",
     "typescript.tsx",
     "python",
     "markdown",
@@ -15,9 +16,9 @@
 
   "eslint.filetypes": [
     "javascript",
-    "javascriptreact",
     "typescript",
     "typescriptreact",
+    "javascriptreact",
     "typescript.tsx"
   ],
 
