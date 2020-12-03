@@ -39,6 +39,8 @@ nmap <leader>qf <Plug>(coc-fix-current)
 nmap <leader>do <Plug>(coc-codeaction)
 nmap <leader>rn <Plug>(coc-rename)
 
+" Python
+nmap <leader>si :CocCommand python.sortImports<CR>
 
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
