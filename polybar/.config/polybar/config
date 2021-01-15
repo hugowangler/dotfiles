@@ -280,9 +280,12 @@ format-font = 3
 format-prefix = " "
 format = <label>
 format-underline = ${colors.primary}
+format-warn-font = 3
 format-warn = <label-warn>
-format-warn-underline = ${self.alert}
+format-warn-prefix = " "
+format-warn-underline = ${colors.alert}
 format-prefix-foreground = ${colors.primary}
+format-warn-prefix-foreground = ${colors.alert}
 
 label = %temperature-c%
 label-warn = %temperature-c%
