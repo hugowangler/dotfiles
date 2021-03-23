@@ -1,3 +1,5 @@
+export PATH=$HOME/bin:/usr/local/bin:/usr/bin/site_perl/:/usr/bin/vendor_perl/:$PATH
+
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/dotfiles/zsh/oh-my-zsh
 
@@ -19,6 +21,9 @@ alias fb="black . -l 80"
 alias gotest="go test ./... -coverprofile=coverage.out"
 alias gotchtml="go tool cover -html=coverage.out"
 alias gotcfn="go tool cover -func coverage.out"
+alias pm="python main.py"
+alias psv "source venv/bin/activate"
+alias pssv "source server/venv/bin/activate"
 
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git z)
@@ -33,6 +38,7 @@ prompt_context(){}
 
 source $HOME/dotfiles/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $HOME/dotfiles/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $HOME/dotfiles/zsh/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -60,3 +66,8 @@ if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
 source /usr/share/nvm/init-nvm.sh
+
+export GPG_TTY=$(tty)
+
+bindkey -v
+source /opt/ros/noetic/setup.zsh
