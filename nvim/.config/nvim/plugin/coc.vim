@@ -4,7 +4,6 @@ let g:coc_snippet_next = '<c-l>'
 let g:coc_snippet_prev = '<c-h>'
 let g:coc_global_extensions = [
 			\ 'coc-tsserver',
-			\ 'coc-python',
 			\ 'coc-json',
 			\ 'coc-eslint',
 			\ 'coc-prettier',
@@ -14,7 +13,8 @@ let g:coc_global_extensions = [
 			\ 'coc-yaml',
 			\ 'coc-vimlsp',
 			\ 'coc-go',
-      \ 'coc-sh'
+      \ 'coc-sh',
+      \ 'coc-pyright'
 			\]
 
 "To code navigatione <cr> to confirm completion, `<C-g>u` means break undo chain at current

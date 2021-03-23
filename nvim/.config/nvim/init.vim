@@ -12,6 +12,7 @@ set updatetime=100
 set colorcolumn=80
 set hidden
 set termguicolors "Enable true colors
+set mouse=a
 filetype plugin indent on
 syntax on
 au FileType perl set filetype=prolog
@@ -19,9 +20,12 @@ au FileType perl set filetype=prolog
 " keybinds
 let mapleader="§"
 
+nnoremap <leader>sv :source $MYVIMRC<CR>
+
+" WhichKey
 nnoremap <silent> <leader>? :WhichKey '§'<CR>
 
-" open NERDTree
+" NERDTree
 map <leader>e :NERDTreeToggle<CR>
 
 call plug#begin('~/.local/share/nvim/plugged/')
@@ -33,7 +37,6 @@ call plug#begin('~/.local/share/nvim/plugged/')
   Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
   Plug 'honza/vim-snippets'
   Plug 'christoomey/vim-tmux-navigator' 
-  Plug 'ryanoasis/vim-devicons'
   Plug 'tpope/vim-surround'
   Plug 'vim-test/vim-test'
   Plug 'tpope/vim-commentary'
@@ -51,7 +54,6 @@ call plug#begin('~/.local/share/nvim/plugged/')
   Plug 'tpope/vim-fugitive'
   Plug 'airblade/vim-gitgutter'
 
-
   "Airline
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
@@ -65,6 +67,8 @@ call plug#begin('~/.local/share/nvim/plugged/')
   "NerdTree
   Plug 'preservim/nerdtree'
   Plug 'Xuyuanp/nerdtree-git-plugin'
+  Plug 'ryanoasis/vim-devicons'
+  Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
   " Haskell
   Plug 'neovimhaskell/haskell-vim'
@@ -85,3 +89,6 @@ autocmd BufEnter *.tsx,*.jsx set filetype=typescript.tsx
 colorscheme onedark
 "highlight Cursorline guibg=Grey15
 "highlight ColorColumn guibg=Grey15
+
+" Python nvim virtualenv
+let g:python3_host_prog='/home/hugo/.pyenv/versions/py3nvim/bin/python'
