@@ -13,12 +13,17 @@ set colorcolumn=80
 set hidden
 set termguicolors "Enable true colors
 set mouse=a
+set spelllang=en
 filetype plugin indent on
 syntax on
 au FileType perl set filetype=prolog
 
 " keybinds
 let mapleader="§"
+
+" Spell checker
+nnoremap <silent> <F11> :set spell!<cr>
+inoremap <silent> <F11> <C-O>:set spell!<cr>
 
 nnoremap <leader>sv :source $MYVIMRC<CR>
 
@@ -49,6 +54,7 @@ call plug#begin('~/.local/share/nvim/plugged/')
   Plug 'peitalin/vim-jsx-typescript'
   "Plug 'Yggdroot/indentLine'
   Plug 'jparise/vim-graphql'
+  " Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
   "git
   Plug 'tpope/vim-fugitive'

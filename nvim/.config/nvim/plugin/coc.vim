@@ -14,7 +14,8 @@ let g:coc_global_extensions = [
 			\ 'coc-vimlsp',
 			\ 'coc-go',
       \ 'coc-sh',
-      \ 'coc-pyright'
+      \ 'coc-pyright',
+      \ 'coc-docker'
 			\]
 
 "To code navigatione <cr> to confirm completion, `<C-g>u` means break undo chain at current

@@ -22,8 +22,8 @@ alias gotest="go test ./... -coverprofile=coverage.out"
 alias gotchtml="go tool cover -html=coverage.out"
 alias gotcfn="go tool cover -func coverage.out"
 alias pm="python main.py"
-alias psv "source venv/bin/activate"
-alias pssv "source server/venv/bin/activate"
+alias psv="source venv/bin/activate"
+alias pssv="source server/venv/bin/activate"
 
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git z)
@@ -63,11 +63,11 @@ export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 
 if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
+  eval "$(pyenv init --path)"
 fi
 source /usr/share/nvm/init-nvm.sh
 
 export GPG_TTY=$(tty)
 
 bindkey -v
-source /opt/ros/noetic/setup.zsh
+# source /opt/ros/noetic/setup.zsh

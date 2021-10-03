@@ -10,7 +10,8 @@
     "python",
     "rust",
     "haskell",
-    "yaml"
+    "yaml",
+    "dockerfile"
   ],
 
   "eslint.filetypes": [
