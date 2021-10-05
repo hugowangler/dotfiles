@@ -1,10 +1,10 @@
-export PATH=$HOME/bin:/usr/local/bin:/usr/bin/site_perl/:/usr/bin/vendor_perl/:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/usr/bin/site_perl/:/usr/bin/vendor_perl/:/usr/local/go/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/dotfiles/zsh/oh-my-zsh
 
 # include z
-. ~/z.sh
+. ~/dotfiles/z/z.sh
 
 # aliases
 alias reloadzsh=". ~/.zshrc && echo 'ZSH config reloaded from ~/.zshrc'"
@@ -40,23 +40,23 @@ source $HOME/dotfiles/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlightin
 source $HOME/dotfiles/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $HOME/dotfiles/zsh/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/hugo/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/hugo/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/hugo/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/hugo/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-#
-# Dont auto start conda
-conda config --set auto_activate_base false
+## >>> conda initialize >>>
+## !! Contents within this block are managed by 'conda init' !!
+#__conda_setup="$('/home/hugo/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+#if [ $? -eq 0 ]; then
+#    eval "$__conda_setup"
+#else
+#    if [ -f "/home/hugo/miniconda3/etc/profile.d/conda.sh" ]; then
+#        . "/home/hugo/miniconda3/etc/profile.d/conda.sh"
+#    else
+#        export PATH="/home/hugo/miniconda3/bin:$PATH"
+#    fi
+#fi
+#unset __conda_setup
+## <<< conda initialize <<<
+##
+## Dont auto start conda
+#conda config --set auto_activate_base false
 
 # pyenv path
 export PYENV_ROOT="$HOME/.pyenv"
@@ -64,8 +64,13 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init --path)"
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
 fi
-source /usr/share/nvm/init-nvm.sh
+# source /usr/share/nvm/init-nvm.sh
+
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 export GPG_TTY=$(tty)
 
