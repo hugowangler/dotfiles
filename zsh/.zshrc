@@ -18,12 +18,20 @@ alias vim="nvim"
 alias vi="nvim"
 alias fbc="black . --check -l 80"
 alias fb="black . -l 80"
-alias gotest="go test ./... -coverprofile=coverage.out"
+alias gotest="go test ./... -coverprofile=coverage.out -covermode=atomic"
 alias gotchtml="go tool cover -html=coverage.out"
 alias gotcfn="go tool cover -func coverage.out"
+alias gotc="go tool cover -html=coverage/coverage.txt"
 alias pm="python main.py"
-alias psv="source venv/bin/activate"
+alias psv="source .venv/bin/activate"
 alias pssv="source server/venv/bin/activate"
+alias mt="make test"
+alias mtc="make test-coverage"
+alias presetdb="go run github.com/prisma/prisma-client-go migrate reset --force --preview-feature && go run github.com/prisma/prisma-client-go migrate deploy --preview-feature"
+alias bi="go run cmd/import/main.go"
+alias bsi="go run cmd/export/main.go"
+alias gmi="go run cmd/migrate/main.go"
+alias gmirb="go run cmd/migrate/main.go --rollback"
 
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git z)
@@ -76,3 +84,11 @@ export GPG_TTY=$(tty)
 
 bindkey -v
 # source /opt/ros/noetic/setup.zsh
+
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOROOT:$GOPATH:$GOBIN
+export GOPRIVATE=github.com/tickup-se
+
+export PATH="$HOME/.poetry/bin:$PATH"

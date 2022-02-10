@@ -1,2 +1,14 @@
 [alias]
 	sla = log --oneline --decorate --graph --all -20
+  lb = !git branch --sort='-committerdate' --format='%(color:green)%(committerdate:relative)%(color:reset) %(refname:short)' | fzf --ansi --layout=reverse --border --info=hidden --height=10 | sed 's/.*ago[ ]*//g' | xargs git checkout
+[core]
+	editor = nvim
+[commit]
+	gpgsign = true
+[user]
+	signingkey = 42389C80490B3C9B
+	email = hugowangler@gmail.com
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/
+[pull]
+	ff = only

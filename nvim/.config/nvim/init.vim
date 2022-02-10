@@ -45,9 +45,11 @@ call plug#begin('~/.local/share/nvim/plugged/')
   Plug 'tpope/vim-surround'
   Plug 'vim-test/vim-test'
   Plug 'tpope/vim-commentary'
+	Plug 'puremourning/vimspector'
 
   "colorscheme
   Plug 'joshdick/onedark.vim'
+  Plug 'tomasr/molokai'
 
   " Syntax highlighting
   Plug 'leafgarland/typescript-vim'
@@ -79,7 +81,17 @@ call plug#begin('~/.local/share/nvim/plugged/')
   " Haskell
   Plug 'neovimhaskell/haskell-vim'
   Plug 'sbdchd/neoformat'
-call plug#end()
+
+  " Go
+  " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+  
+  " c++
+  Plug 'jackguo380/vim-lsp-cxx-highlight'
+
+  " Prisma 
+  Plug 'pantharshit00/vim-prisma'
+
+  call plug#end()
 
 " Reload config when saved
 augroup vimrchook
@@ -98,3 +110,5 @@ colorscheme onedark
 
 " Python nvim virtualenv
 let g:python3_host_prog='/home/hugo/.pyenv/versions/py3nvim/bin/python'
+
+autocmd FileType prisma syntax sync fromstart

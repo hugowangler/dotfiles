@@ -11,7 +11,9 @@
     "rust",
     "haskell",
     "yaml",
-    "dockerfile"
+    "dockerfile",
+    "prisma",
+    "cpp"
   ],
 
   "eslint.filetypes": [
@@ -42,7 +44,8 @@
       "initializationOptions": {
         "cache": {
           "directory": "/tmp/ccls"
-        }
+        },
+        "highlight": { "lsRanges": true }
       }
     }
   }

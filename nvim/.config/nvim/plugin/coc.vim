@@ -15,7 +15,8 @@ let g:coc_global_extensions = [
 			\ 'coc-go',
       \ 'coc-sh',
       \ 'coc-pyright',
-      \ 'coc-docker'
+      \ 'coc-docker',
+      \ 'coc-prisma',
 			\]
 
 "To code navigatione <cr> to confirm completion, `<C-g>u` means break undo chain at current
@@ -30,6 +31,7 @@ endif
 nnoremap <leader>F :call CocAction('format')<CR>
 
 nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gt :call CocAction('jumpDefinition', 'botright vsplit')<CR>
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
@@ -39,6 +41,8 @@ nmap <silent> gp <Plug>(coc-diagnostic-prev)
 nmap <leader>qf <Plug>(coc-fix-current)
 nmap <leader>do <Plug>(coc-codeaction)
 nmap <leader>rn <Plug>(coc-rename)
+
+inoremap <silent><expr> <c-space> coc#refresh()
 
 " Python
 nmap <leader>si :CocCommand python.sortImports<CR>
