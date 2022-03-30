@@ -9,6 +9,7 @@ export ZSH=$HOME/dotfiles/zsh/oh-my-zsh
 # aliases
 alias reloadzsh=". ~/.zshrc && echo 'ZSH config reloaded from ~/.zshrc'"
 alias d="docker"
+alias k="kubectl"
 alias dc="docker-compose"
 alias s="sudo"
 alias dcopc="docker-compose -f docker-compose-check.yml up --build"
@@ -32,9 +33,10 @@ alias bi="go run cmd/import/main.go"
 alias bsi="go run cmd/export/main.go"
 alias gmi="go run cmd/migrate/main.go"
 alias gmirb="go run cmd/migrate/main.go --rollback"
+alias gogql="go get github.com/99designs/gqlgen/cmd@v0.15.1 && go run github.com/99designs/gqlgen generate --verbose"
 
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git z)
+plugins=(git z kubectl)
 
 ZSH_THEME="agnoster"
 
@@ -85,6 +87,7 @@ export GPG_TTY=$(tty)
 bindkey -v
 # source /opt/ros/noetic/setup.zsh
 
+export GO111MODULE=on  # Enable module mode
 export GOROOT=/usr/local/go
 export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
@@ -92,3 +95,4 @@ export PATH=$PATH:$GOROOT:$GOPATH:$GOBIN
 export GOPRIVATE=github.com/tickup-se
 
 export PATH="$HOME/.poetry/bin:$PATH"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"

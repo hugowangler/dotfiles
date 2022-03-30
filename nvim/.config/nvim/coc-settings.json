@@ -13,10 +13,11 @@
     "yaml",
     "dockerfile",
     "prisma",
-    "cpp"
+    "cpp",
+    "tf"
   ],
-
-  "eslint.filetypes": [
+  "eslint.autoFixOnSave": true,
+  "eslint.validate": [
     "javascript",
     "typescript",
     "typescriptreact",
@@ -47,6 +48,13 @@
         },
         "highlight": { "lsRanges": true }
       }
+    },
+    "terraform": {
+      "command": "terraform-ls",
+      "args": ["serve"],
+      "filetypes": ["terraform", "tf"],
+      "initializationOptions": {},
+      "settings": {}
     }
   }
 }

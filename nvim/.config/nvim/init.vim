@@ -112,3 +112,4 @@ colorscheme onedark
 let g:python3_host_prog='/home/hugo/.pyenv/versions/py3nvim/bin/python'
 
 autocmd FileType prisma syntax sync fromstart
+autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
