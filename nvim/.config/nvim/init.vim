@@ -9,7 +9,7 @@ set softtabstop=2
 set shiftwidth=2
 set expandtab
 set updatetime=100
-set colorcolumn=80
+set colorcolumn=120
 set hidden
 set termguicolors "Enable true colors
 set mouse=a
@@ -46,6 +46,8 @@ call plug#begin('~/.local/share/nvim/plugged/')
   Plug 'vim-test/vim-test'
   Plug 'tpope/vim-commentary'
 	Plug 'puremourning/vimspector'
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plug 'junegunn/fzf.vim'
 
   "colorscheme
   Plug 'joshdick/onedark.vim'

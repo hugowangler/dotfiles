@@ -96,3 +96,5 @@ export GOPRIVATE=github.com/tickup-se
 
 export PATH="$HOME/.poetry/bin:$PATH"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+source /snap/google-cloud-sdk/current/completion.zsh.inc
