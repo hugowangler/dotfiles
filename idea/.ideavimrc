@@ -1,0 +1,37 @@
+source ~/dotfiles/nvim/.config/nvim/init.vim
+
+let NERDTreeQuitOnOpen=1
+
+nmap <leader>si :source ~/.ideavimrc<CR>
+
+" actions
+nmap <leader>y :action PasteMultiple<CR>
+nmap <leader>ff :action GotoFile<CR>
+nmap <leader>fc :action GotoClass<CR>
+nmap <leader>fs :action GotoSymbol<CR>
+nmap <leader>t :action ActivateTerminalToolWindow<CR>
+nmap <silent> gn :action GotoNextError<CR>
+nmap <silent> gp :action GotoPreviousError<CR>
+nmap gd :action GotoDeclaration<CR>
+nmap gr :action FindUsages<CR>
+nnoremap gt :action GotoTest<CR>
+nmap <C-o> :action Back<CR>
+nmap <C-i> :action Forward<CR>
+nmap <leader>rn :action RenameElement<CR>
+nmap <leader>qf :action ShowIntentionActions<CR>
+nmap ]c :action VcsShowNextChangeMarker<cr>
+nmap [c :action VcsShowPrevChangeMarker<cr>
+
+" split navigation
+map <C-H> <C-W>h
+map <C-L> <C-W>l
+map <C-J> <C-W>j
+map <C-K> <C-W>k
+
+" tests
+nmap <silent> t<C-n> :action ContextRun<CR>
+nmap <silent> t<C-f> :action Run<CR>
+nnoremap t<C-e> :action RerunFailedTests<CR>
+" nmap <silent> t<C-s> :TestSuite<CR>
+" nmap <silent> t<C-l> :TestLast<CR>
+" nmap <silent> t<C-g> :TestVisit<CR>
