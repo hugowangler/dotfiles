@@ -24,6 +24,8 @@
     "javascriptreact",
     "typescript.tsx"
   ],
+  "yaml.format.singleQuote": false,
+  "yaml.format.bracketSpacing": false,
 
   "languageserver": {
     "haskell": {

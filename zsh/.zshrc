@@ -33,7 +33,7 @@ alias bi="go run cmd/import/main.go"
 alias bsi="go run cmd/export/main.go"
 alias gmi="go run cmd/migrate/main.go"
 alias gmirb="go run cmd/migrate/main.go --rollback"
-alias gogql="go get github.com/99designs/gqlgen/cmd@v0.15.1 && go run github.com/99designs/gqlgen generate --verbose"
+alias gogql="go run github.com/99designs/gqlgen generate --verbose"
 
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git z kubectl)
@@ -93,8 +93,8 @@ export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOROOT:$GOPATH:$GOBIN
 export GOPRIVATE=github.com/tickup-se
-
-export PATH="$HOME/.poetry/bin:$PATH"
+export PATH="/home/hugo/.local/bin:$PATH"
+export KUBECONFIG="secrets/kubeconfig.yaml"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 source /snap/google-cloud-sdk/current/completion.zsh.inc

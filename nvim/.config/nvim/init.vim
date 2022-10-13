@@ -8,7 +8,7 @@ set tabstop=2
 set softtabstop=2
 set shiftwidth=2
 set expandtab
-set updatetime=100
+set updatetime=300
 set colorcolumn=120
 set hidden
 set termguicolors "Enable true colors
@@ -17,6 +17,7 @@ set spelllang=en
 filetype plugin indent on
 syntax on
 au FileType perl set filetype=prolog
+set signcolumn=yes
 
 " keybinds
 let mapleader="§"
@@ -113,5 +114,5 @@ colorscheme onedark
 " Python nvim virtualenv
 let g:python3_host_prog='/home/hugo/.pyenv/versions/py3nvim/bin/python'
 
-autocmd FileType prisma syntax sync fromstart
+" autocmd FileType prisma syntax sync fromstart
 autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
