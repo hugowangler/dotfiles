@@ -35,6 +35,14 @@ alias gmi="go run cmd/migrate/main.go"
 alias gmirb="go run cmd/migrate/main.go --rollback"
 alias gogql="go run github.com/99designs/gqlgen generate --verbose"
 
+alias so="sesame open"
+alias sopl="sesame open plutus"
+alias sohe="sesame open hermes"
+alias sobetl="sesame open bahnhof-etl"
+alias sobres="sesame open bahnhof-research"
+alias sosa="sesame open sesame"
+
+
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git z kubectl)
 
