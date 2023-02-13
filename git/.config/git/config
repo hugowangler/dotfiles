@@ -12,3 +12,5 @@
 	insteadOf = https://github.com/
 [pull]
 	ff = only
+[diff]
+	external = difft
