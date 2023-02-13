@@ -52,6 +52,9 @@ source $ZSH/oh-my-zsh.sh
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
 
+# show hidden files in completions
+setopt globdots
+
 prompt_context(){}
 
 source $HOME/dotfiles/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
