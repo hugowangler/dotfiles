@@ -52,6 +52,9 @@ source $ZSH/oh-my-zsh.sh
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
 
+# dont show ".." and "." in auto-completions
+zstyle ":completion:*" special-dirs false
+
 # show hidden files in completions
 setopt globdots
 
