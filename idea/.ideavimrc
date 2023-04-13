@@ -2,6 +2,8 @@ source ~/dotfiles/nvim/.config/nvim/init.vim
 
 let NERDTreeQuitOnOpen=1
 
+set quickscope
+
 nmap <leader>si :source ~/.ideavimrc<CR>
 
 " actions
@@ -35,3 +37,4 @@ nnoremap t<C-e> :action RerunFailedTests<CR>
 " nmap <silent> t<C-s> :TestSuite<CR>
 " nmap <silent> t<C-l> :TestLast<CR>
 " nmap <silent> t<C-g> :TestVisit<CR>
+"
