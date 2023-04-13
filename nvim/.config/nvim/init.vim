@@ -57,11 +57,9 @@ call plug#begin('~/.local/share/nvim/plugged/')
   " Syntax highlighting
   Plug 'leafgarland/typescript-vim'
   Plug 'peitalin/vim-jsx-typescript'
-  "Plug 'Yggdroot/indentLine'
   Plug 'jparise/vim-graphql'
-  " Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
-  "git
+  " git
   Plug 'tpope/vim-fugitive'
   Plug 'airblade/vim-gitgutter'
 
@@ -79,7 +77,7 @@ call plug#begin('~/.local/share/nvim/plugged/')
   Plug 'preservim/nerdtree'
   Plug 'Xuyuanp/nerdtree-git-plugin'
   Plug 'ryanoasis/vim-devicons'
-  Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+  " Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
   " Haskell
   Plug 'neovimhaskell/haskell-vim'
@@ -88,13 +86,8 @@ call plug#begin('~/.local/share/nvim/plugged/')
   " Go
   " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
   
-  " c++
-  Plug 'jackguo380/vim-lsp-cxx-highlight'
-
-  " Prisma 
-  Plug 'pantharshit00/vim-prisma'
-
-  call plug#end()
+  Plug 'unblevable/quick-scope'
+call plug#end()
 
 " Reload config when saved
 augroup vimrchook
