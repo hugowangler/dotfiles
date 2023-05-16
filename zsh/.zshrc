@@ -10,10 +10,8 @@ export ZSH=$HOME/dotfiles/zsh/oh-my-zsh
 alias reloadzsh=". ~/.zshrc && echo 'ZSH config reloaded from ~/.zshrc'"
 alias d="docker"
 alias k="kubectl"
-alias dc="docker-compose"
+alias dc="docker compose"
 alias s="sudo"
-alias dcopc="docker-compose -f docker-compose-check.yml up --build"
-alias dcopd="docker-compose -f docker-compose-dev.yml up --build"
 alias deit="docker exec -it"
 alias vim="nvim"
 alias vi="nvim"
@@ -41,6 +39,7 @@ alias sohe="sesame open hermes"
 alias sobetl="sesame open bahnhof-etl"
 alias sobres="sesame open bahnhof-research"
 alias sosa="sesame open sesame"
+alias python="python3"
 
 
 # Add wisely, as too many plugins slow down shell startup.
@@ -111,4 +110,4 @@ export PATH="/home/hugo/.local/bin:$PATH"
 export KUBECONFIG="secrets/kubeconfig.yaml"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-source /snap/google-cloud-sdk/current/completion.zsh.inc
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
