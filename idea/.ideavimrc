@@ -24,6 +24,9 @@ nmap <leader>qf :action ShowIntentionActions<CR>
 nmap ]c :action VcsShowNextChangeMarker<cr>
 nmap [c :action VcsShowPrevChangeMarker<cr>
 
+nmap gqq :action com.andrewbrookins.idea.wrap.WrapAction<CR>
+vmap gq :action com.andrewbrookins.idea.wrap.WrapAction<CR>
+
 " split navigation
 map <C-H> <C-W>h
 map <C-L> <C-W>l
