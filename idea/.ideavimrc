@@ -8,7 +8,7 @@ nmap <leader>si :source ~/.ideavimrc<CR>
 
 " actions
 nmap <leader>y :action PasteMultiple<CR>
-nmap <leader>ff :action GotoFile<CR>
+nmap <C-p> :action GotoFile<CR>
 nmap <leader>fc :action GotoClass<CR>
 nmap <leader>fs :action GotoSymbol<CR>
 nmap <leader>t :action ActivateTerminalToolWindow<CR>
