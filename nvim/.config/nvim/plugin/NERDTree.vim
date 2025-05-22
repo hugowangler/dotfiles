@@ -12,7 +12,8 @@ let g:NERDTreeSortHiddenFirst=0
 let g:NERDTreeQuitOnOpen=1
 " Show line number
 let g:NERDTreeShowLineNumbers=1
-
+" Increase window size
+let g:NERDTreeWinSize=50
 
 " NerdTree-syntax-highlight
 let g:NERDTreeFileExtensionHighlightFullName = 1

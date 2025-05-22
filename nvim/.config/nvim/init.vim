@@ -34,6 +34,9 @@ nnoremap <silent> <leader>? :WhichKey '§'<CR>
 " NERDTree
 map <leader>e :NERDTreeToggle<CR>
 
+" Hide highlight using enter
+nnoremap <silent> <cr> :noh<cr><cr>
+
 call plug#begin('~/.local/share/nvim/plugged/')
   Plug 'neoclide/coc.nvim', {
     \ 'branch': 'release',
@@ -49,6 +52,7 @@ call plug#begin('~/.local/share/nvim/plugged/')
 	Plug 'puremourning/vimspector'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
   "colorscheme
   Plug 'joshdick/onedark.vim'
@@ -105,7 +109,7 @@ colorscheme onedark
 "highlight ColorColumn guibg=Grey15
 
 " Python nvim virtualenv
-let g:python3_host_prog='/home/hugo/.pyenv/versions/py3nvim/bin/python'
+let g:python3_host_prog='/Users/hugo/.pyenv/versions/py3nvim/bin/python'
 
 " autocmd FileType prisma syntax sync fromstart
 autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')

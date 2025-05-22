@@ -16,6 +16,7 @@
     "cpp",
     "tf"
   ],
+  "coc.preferences.formatOnSave": true,
   "eslint.autoFixOnSave": true,
   "eslint.validate": [
     "javascript",
@@ -58,5 +59,9 @@
       "initializationOptions": {},
       "settings": {}
     }
+  },
+  "snippets.ultisnips.pythonPrompt": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
   }
 }

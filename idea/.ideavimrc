@@ -1,6 +1,7 @@
 source ~/dotfiles/nvim/.config/nvim/init.vim
 
 let NERDTreeQuitOnOpen=1
+let mapleader="§"
 
 set quickscope
 

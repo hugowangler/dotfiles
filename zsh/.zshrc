@@ -9,16 +9,16 @@ export ZSH=$HOME/dotfiles/zsh/oh-my-zsh
 # aliases
 alias reloadzsh=". ~/.zshrc && echo 'ZSH config reloaded from ~/.zshrc'"
 alias d="docker"
-alias k="kubectl"
+command -v kubecolor >/dev/null 2>&1 && alias kubectl="kubecolor"
+command -v kubecolor >/dev/null 2>&1 && alias k="kubecolor"
 alias dc="docker compose"
 alias s="sudo"
 alias deit="docker exec -it"
-alias vim="nvim"
 alias vi="nvim"
 alias fbc="black . --check -l 80"
 alias fb="black . -l 80"
 alias gotest="go test ./... -coverprofile=coverage.out -covermode=atomic"
-alias gotchtml="go tool cover -html=coverage.out -o coverage.html && firefox coverage.html"
+alias gotchtml="go tool cover -html=coverage.out -o coverage.html && open coverage.html"
 alias gotcfn="go tool cover -func coverage.out"
 alias gotc="go tool cover -html=coverage/coverage.txt"
 alias pm="python main.py"
@@ -82,14 +82,14 @@ source $HOME/dotfiles/zsh/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh
 #conda config --set auto_activate_base false
 
 # pyenv path
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
+# export PYENV_ROOT="$HOME/.pyenv"
+# export PATH="$PYENV_ROOT/bin:$PATH"
 
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init --path)"
-  eval "$(pyenv init -)"
-  eval "$(pyenv virtualenv-init -)"
-fi
+# if command -v pyenv 1>/dev/null 2>&1; then
+#   eval "$(pyenv init --path)"
+#   eval "$(pyenv init -)"
+#   eval "$(pyenv virtualenv-init -)"
+# fi
 # source /usr/share/nvm/init-nvm.sh
 
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
@@ -106,8 +106,37 @@ export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOROOT:$GOPATH:$GOBIN
 export GOPRIVATE=github.com/tickup-se
-export PATH="/home/hugo/.local/bin:$PATH"
+export PATH="/Users/hugo/.local/bin:$PATH"
 export KUBECONFIG="secrets/kubeconfig.yaml"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv init --path)"
+if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+
+# Fix to get rid of some locale issues in SSH
+export LC_ALL=en_US.UTF-8
+export LANG=${LC_ALL}
+
+# kubcetl secrets helper
+function kubectl-show-secret-data() {
+  for field in $(kubectl get secret "$@" -o json | jq -r '.data | keys[]') ; do
+    echo -n "${field}: "
+    kubectl get secret "$@" -o=jsonpath="{.data.${field}}" | base64 --decode
+    echo ""
+  done
+}
+alias kssd=kubectl-show-secret-data
+
+function list-oci-helm-chart() {
+  skopeo list-tags $(echo $1 | sed -e 's|oci://|docker://|') | \
+    jq -r '.Tags[]' | sort -V
+}
+
+# fix ssh-add -A for macos
+export APPLE_SSH_ADD_BEHAVIOR=macos
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
