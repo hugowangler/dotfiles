@@ -18,6 +18,9 @@ filetype plugin indent on
 syntax on
 au FileType perl set filetype=prolog
 set signcolumn=yes
+set lazyredraw
+
+
 
 " keybinds
 let mapleader="§"
@@ -68,11 +71,11 @@ call plug#begin('~/.local/share/nvim/plugged/')
   Plug 'airblade/vim-gitgutter'
 
   "Airline
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
+  " Plug 'vim-airline/vim-airline'
+  " Plug 'vim-airline/vim-airline-themes'
 
   "TmuxLine
-  Plug 'edkolev/tmuxline.vim'
+  " Plug 'edkolev/tmuxline.vim'
 
   "CtrlP
   Plug 'ctrlpvim/ctrlp.vim'
@@ -108,8 +111,12 @@ colorscheme onedark
 "highlight Cursorline guibg=Grey15
 "highlight ColorColumn guibg=Grey15
 
+" Disable unused providers
+let g:loaded_perl_provider = 0
+let g:loaded_ruby_provider = 0
+
 " Python nvim virtualenv
-let g:python3_host_prog='/Users/hugo/.pyenv/versions/py3nvim/bin/python'
+let g:python3_host_prog='/Users/hugo/.venvs/py3nvim/bin/python'
 
 " autocmd FileType prisma syntax sync fromstart
 autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
