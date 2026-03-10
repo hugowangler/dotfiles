@@ -67,7 +67,6 @@ npx()  { _nvm_lazy_load; npx "$@"; }
 
 export GPG_TTY=$(tty)
 
-export GO111MODULE=on  # Enable module mode
 export GOROOT=/usr/local/go
 export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
