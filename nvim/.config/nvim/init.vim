@@ -1,99 +1,67 @@
-set autoindent
 set number relativenumber
-set showmode
-set encoding=UTF-8
-set hlsearch
-set numberwidth=1
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
 set expandtab
 set updatetime=300
 set colorcolumn=120
-set hidden
-set termguicolors "Enable true colors
-set mouse=a
 set spelllang=en
-filetype plugin indent on
-syntax on
-au FileType perl set filetype=prolog
 set signcolumn=yes
-set lazyredraw
-
-
 
 " keybinds
-let mapleader="§"
-
-" Spell checker
-nnoremap <silent> <F11> :set spell!<cr>
-inoremap <silent> <F11> <C-O>:set spell!<cr>
+let mapleader=" "
 
 nnoremap <leader>sv :source $MYVIMRC<CR>
 
 " WhichKey
-nnoremap <silent> <leader>? :WhichKey '§'<CR>
+nnoremap <silent> <leader>? :WhichKey ' '<CR>
 
 " NERDTree
 map <leader>e :NERDTreeToggle<CR>
+
+" fzf
+nnoremap <C-p> :Files<CR>
+nnoremap <leader>ff :Files<CR>
+nnoremap <leader>fg :Rg<CR>
+nnoremap <leader>fb :Buffers<CR>
+nnoremap <leader>/ :BLines<CR>
+nnoremap <leader>fh :History<CR>
 
 " Hide highlight using enter
 nnoremap <silent> <cr> :noh<cr><cr>
 
 call plug#begin('~/.local/share/nvim/plugged/')
-  Plug 'neoclide/coc.nvim', {
-    \ 'branch': 'release',
-    \ 'do': { -> #coc#util#install() }
-  \}
-  Plug 'jiangmiao/auto-pairs'
-  Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
-  Plug 'honza/vim-snippets'
-  Plug 'christoomey/vim-tmux-navigator' 
-  Plug 'tpope/vim-surround'
-  Plug 'vim-test/vim-test'
-  Plug 'tpope/vim-commentary'
+    Plug 'jiangmiao/auto-pairs'
+    Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+    Plug 'honza/vim-snippets'
+    Plug 'christoomey/vim-tmux-navigator' 
+    Plug 'tpope/vim-surround'
+    Plug 'vim-test/vim-test'
 	Plug 'puremourning/vimspector'
-  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-  Plug 'junegunn/fzf.vim'
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+    Plug 'junegunn/fzf.vim'
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-  "colorscheme
-  Plug 'joshdick/onedark.vim'
-  Plug 'tomasr/molokai'
+    "colorscheme
+    Plug 'joshdick/onedark.vim'
+    Plug 'rose-pine/neovim', { 'as': 'rose-pine' }
 
-  " Syntax highlighting
-  Plug 'leafgarland/typescript-vim'
-  Plug 'peitalin/vim-jsx-typescript'
-  Plug 'jparise/vim-graphql'
+    " Syntax highlighting
+    Plug 'leafgarland/typescript-vim'
+    Plug 'peitalin/vim-jsx-typescript'
+    Plug 'jparise/vim-graphql'
 
-  " git
-  Plug 'tpope/vim-fugitive'
-  Plug 'airblade/vim-gitgutter'
+    " git
+    Plug 'tpope/vim-fugitive'
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'lewis6991/gitsigns.nvim'
 
-  "Airline
-  " Plug 'vim-airline/vim-airline'
-  " Plug 'vim-airline/vim-airline-themes'
+    "NerdTree
+    Plug 'preservim/nerdtree'
+    Plug 'Xuyuanp/nerdtree-git-plugin'
+    Plug 'ryanoasis/vim-devicons'
 
-  "TmuxLine
-  " Plug 'edkolev/tmuxline.vim'
-
-  "CtrlP
-  Plug 'ctrlpvim/ctrlp.vim'
-
-  "NerdTree
-  Plug 'preservim/nerdtree'
-  Plug 'Xuyuanp/nerdtree-git-plugin'
-  Plug 'ryanoasis/vim-devicons'
-  " Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-
-  " Haskell
-  Plug 'neovimhaskell/haskell-vim'
-  Plug 'sbdchd/neoformat'
-
-  " Go
-  " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-  
-  Plug 'unblevable/quick-scope'
+    Plug 'unblevable/quick-scope'
 call plug#end()
 
 " Reload config when saved
@@ -102,21 +70,26 @@ augroup vimrchook
     autocmd bufwritepost $MYVIMRC source $MYVIMRC
 augroup END
 
-autocmd BufEnter *.ts set filetype=typescript
-"autocmd BufEnter *.tsx set filetype=typescript.tsx
-autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
-autocmd BufEnter *.tsx,*.jsx set filetype=typescript.tsx
+"colorscheme onedark
+colorscheme rose-pine
 
-colorscheme onedark
-"highlight Cursorline guibg=Grey15
-"highlight ColorColumn guibg=Grey15
-
-" Disable unused providers
+"Disable unused providers
 let g:loaded_perl_provider = 0
 let g:loaded_ruby_provider = 0
 
-" Python nvim virtualenv
+"Python nvim virtualenv
 let g:python3_host_prog='/Users/hugo/.venvs/py3nvim/bin/python'
 
-" autocmd FileType prisma syntax sync fromstart
-autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
+lua << EOF
+require('gitsigns').setup({
+  on_attach = function(bufnr)
+    local gs = require('gitsigns')
+    vim.keymap.set('n', '<leader>hp', gs.preview_hunk, { buffer = bufnr })
+    vim.keymap.set('n', '<leader>hs', gs.stage_hunk, { buffer = bufnr })
+    vim.keymap.set('n', '<leader>hr', gs.reset_hunk, { buffer = bufnr })
+    vim.keymap.set('n', '<leader>hu', gs.undo_stage_hunk, { buffer = bufnr })
+    vim.keymap.set('n', ']c', gs.next_hunk, { buffer = bufnr })
+    vim.keymap.set('n', '[c', gs.prev_hunk, { buffer = bufnr })
+  end
+})
+EOF
