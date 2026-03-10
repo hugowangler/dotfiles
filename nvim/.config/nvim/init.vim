@@ -33,23 +33,17 @@ nnoremap <silent> <cr> :noh<cr><cr>
 call plug#begin('~/.local/share/nvim/plugged/')
     Plug 'jiangmiao/auto-pairs'
     Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
-    Plug 'honza/vim-snippets'
     Plug 'christoomey/vim-tmux-navigator' 
     Plug 'tpope/vim-surround'
     Plug 'vim-test/vim-test'
-	Plug 'puremourning/vimspector'
+
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
+
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
     "colorscheme
-    Plug 'joshdick/onedark.vim'
     Plug 'rose-pine/neovim', { 'as': 'rose-pine' }
-
-    " Syntax highlighting
-    Plug 'leafgarland/typescript-vim'
-    Plug 'peitalin/vim-jsx-typescript'
-    Plug 'jparise/vim-graphql'
 
     " git
     Plug 'tpope/vim-fugitive'
@@ -70,7 +64,6 @@ augroup vimrchook
     autocmd bufwritepost $MYVIMRC source $MYVIMRC
 augroup END
 
-"colorscheme onedark
 colorscheme rose-pine
 
 "Disable unused providers
