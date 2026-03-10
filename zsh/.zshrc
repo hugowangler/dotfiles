@@ -78,6 +78,11 @@ alias kssd=kubectl-show-secret-data
 # Editor
 alias vi="nvim"
 
+# Files
+alias ls="ls -A"
+alias ll="ls -lAh"
+alias la="ls -lah"
+
 # General
 alias s="sudo"
 
