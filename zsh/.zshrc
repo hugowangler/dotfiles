@@ -1,5 +1,7 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/dotfiles/zsh/oh-my-zsh
+export CLICOLOR=1
+export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
 
 # aliases
 alias reloadzsh=". ~/.zshrc && echo 'ZSH config reloaded from ~/.zshrc'"
