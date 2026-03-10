@@ -54,7 +54,7 @@ nnoremap <silent> K :call ShowDocumentation()<CR>
 
 
 " Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
+"autocmd CursorHold * silent call CocActionAsync('highlight')
 
 function! ShowDocumentation()
   if CocAction('hasProvider', 'hover')
