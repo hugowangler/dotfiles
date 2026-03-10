@@ -1,9 +1,6 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/dotfiles/zsh/oh-my-zsh
 
-# include z
-. ~/dotfiles/z/z.sh
-
 # aliases
 alias reloadzsh=". ~/.zshrc && echo 'ZSH config reloaded from ~/.zshrc'"
 alias d="docker"
@@ -39,7 +36,7 @@ alias sobres="sesame open bahnhof-research"
 alias sosa="sesame open sesame"
 
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git z kubectl)
+plugins=(git kubectl)
 
 ZSH_THEME=""
 
@@ -53,7 +50,7 @@ zstyle ":completion:*" special-dirs false
 # show hidden files in completions
 setopt globdots
 
-source $HOME/dotfiles/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $HOME/dotfiles/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 source $HOME/dotfiles/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $HOME/dotfiles/zsh/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh
 
@@ -78,6 +75,8 @@ export PATH=$PATH:$GOROOT:$GOPATH:$GOBIN
 export GOPRIVATE=github.com/tickup-se
 export PATH="/Users/hugo/.local/bin:$PATH"
 eval "$(/opt/homebrew/bin/brew shellenv)"
+eval "$(zoxide init zsh)"
+source <(fzf --zsh)
 
 # Fix to get rid of some locale issues in SSH
 export LC_ALL=en_US.UTF-8
