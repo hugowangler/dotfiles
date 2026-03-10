@@ -43,7 +43,7 @@ call plug#begin('~/.local/share/nvim/plugged/')
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
     "colorscheme
-    Plug 'rose-pine/neovim', { 'as': 'rose-pine' }
+    Plug 'folke/tokyonight.nvim'
 
     " git
     Plug 'tpope/vim-fugitive'
@@ -64,7 +64,7 @@ augroup vimrchook
     autocmd bufwritepost $MYVIMRC source $MYVIMRC
 augroup END
 
-colorscheme rose-pine
+colorscheme tokyonight-night
 
 "Disable unused providers
 let g:loaded_perl_provider = 0
