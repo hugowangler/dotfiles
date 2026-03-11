@@ -9,7 +9,5 @@ return {
         { "<leader>/", function() require("fzf-lua").blines() end, desc = "Buffer lines" },
         { "<leader>fh", function() require("fzf-lua").oldfiles() end, desc = "Recent files" },
     },
-    config = function()
-        require("fzf-lua").setup({})
-    end,
+    opts = {},
 }

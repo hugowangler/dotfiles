@@ -13,9 +13,8 @@ return {
                     map("n", "<leader>hp", gs.preview_hunk, "Preview hunk")
                     map("n", "<leader>hs", gs.stage_hunk, "Stage hunk")
                     map("n", "<leader>hr", gs.reset_hunk, "Reset hunk")
-                    map("n", "<leader>hu", gs.undo_stage_hunk, "Undo stage hunk")
-                    map("n", "]c", gs.next_hunk, "Next hunk")
-                    map("n", "[c", gs.prev_hunk, "Previous hunk")
+                    map("n", "]c", function() gs.nav_hunk("next") end, "Next hunk")
+                    map("n", "[c", function() gs.nav_hunk("prev") end, "Previous hunk")
                 end,
             })
         end,

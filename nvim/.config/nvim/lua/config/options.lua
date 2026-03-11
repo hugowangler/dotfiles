@@ -15,7 +15,6 @@ opt.updatetime = 300
 opt.colorcolumn = "120"
 opt.spelllang = "en"
 opt.signcolumn = "yes"
-opt.termguicolors = true
 opt.splitright = true
 opt.splitbelow = true
 opt.undofile = true

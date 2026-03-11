@@ -4,42 +4,31 @@ return {
     keys = {
         { "<leader>e", "<cmd>NvimTreeToggle<CR>", desc = "Toggle file explorer" },
     },
-    config = function()
-        require("nvim-tree").setup({
-            view = {
-                width = 50,
-                number = true,
-                relativenumber = true,
+    opts = {
+        view = {
+            width = 50,
+            number = true,
+            relativenumber = true,
+        },
+        filters = {
+            dotfiles = false,
+            custom = {
+                "^\\.git$",
+                "node_modules",
+                "__pycache__",
+                "\\.pyc$",
+                "\\.pytest_cache",
+                "\\.mypy_cache",
+                "coverage",
+                "\\.next",
+                "htmlcov",
+                "venv",
             },
-            renderer = {
-                icons = {
-                    show = {
-                        git = true,
-                        file = true,
-                        folder = true,
-                    },
-                },
+        },
+        actions = {
+            open_file = {
+                quit_on_open = true,
             },
-            filters = {
-                dotfiles = false,
-                custom = {
-                    "^\\.git$",
-                    "node_modules",
-                    "__pycache__",
-                    "\\.pyc$",
-                    "\\.pytest_cache",
-                    "\\.mypy_cache",
-                    "coverage",
-                    "\\.next",
-                    "htmlcov",
-                    "venv",
-                },
-            },
-            actions = {
-                open_file = {
-                    quit_on_open = true,
-                },
-            },
-        })
-    end,
+        },
+    },
 }
