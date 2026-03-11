@@ -90,16 +90,13 @@ return {
                         vim.keymap.set(mode, lhs, rhs, { buffer = args.buf, desc = "LSP: " .. desc })
                     end
 
-                    map("n", "gd", vim.lsp.buf.definition, "Go to definition")
-                    map("n", "gr", vim.lsp.buf.references, "Go to references")
-                    map("n", "gy", vim.lsp.buf.type_definition, "Go to type definition")
-                    map("n", "gi", vim.lsp.buf.implementation, "Go to implementation")
-                    map("n", "K", vim.lsp.buf.hover, "Hover documentation")
-                    map("n", "<leader>rn", vim.lsp.buf.rename, "Rename symbol")
+                    -- Neovim 0.11 built-ins: gd, K, grr, gri, grn, gra
+                    -- Custom keymaps for actions without built-in bindings
+                    map("n", "grt", vim.lsp.buf.type_definition, "Go to type definition")
                     map("n", "<leader>qf", vim.lsp.buf.code_action, "Code action")
                     map("n", "<leader>F", function() vim.lsp.buf.format({ async = true }) end, "Format buffer")
-                    map("n", "gn", vim.diagnostic.goto_next, "Next diagnostic")
-                    map("n", "gp", vim.diagnostic.goto_prev, "Previous diagnostic")
+                    map("n", "gn", function() vim.diagnostic.jump({ count = 1 }) end, "Next diagnostic")
+                    map("n", "gp", function() vim.diagnostic.jump({ count = -1 }) end, "Previous diagnostic")
                 end,
             })
         end,

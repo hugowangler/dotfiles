@@ -1,6 +1,7 @@
 return {
     "nvim-neotest/neotest",
     dependencies = {
+        "nvim-neotest/nvim-nio",
         "nvim-lua/plenary.nvim",
         "nvim-treesitter/nvim-treesitter",
         "antoinemadec/FixCursorHold.nvim",
@@ -8,12 +9,12 @@ return {
         "fredrikaverpil/neotest-golang",
     },
     keys = {
-        { "t<C-n>", function() require("neotest").run.run() end, desc = "Test nearest" },
-        { "t<C-f>", function() require("neotest").run.run(vim.fn.expand("%")) end, desc = "Test file" },
-        { "t<C-s>", function() require("neotest").run.run(vim.fn.getcwd()) end, desc = "Test suite" },
-        { "t<C-l>", function() require("neotest").run.run_last() end, desc = "Test last" },
-        { "t<C-o>", function() require("neotest").output.open({ enter = true }) end, desc = "Test output" },
-        { "t<C-t>", function() require("neotest").summary.toggle() end, desc = "Test summary" },
+        { "<leader>tn", function() require("neotest").run.run() end, desc = "Test nearest" },
+        { "<leader>tf", function() require("neotest").run.run(vim.fn.expand("%")) end, desc = "Test file" },
+        { "<leader>ts", function() require("neotest").run.run(vim.fn.getcwd()) end, desc = "Test suite" },
+        { "<leader>tl", function() require("neotest").run.run_last() end, desc = "Test last" },
+        { "<leader>to", function() require("neotest").output.open({ enter = true }) end, desc = "Test output" },
+        { "<leader>tt", function() require("neotest").summary.toggle() end, desc = "Test summary" },
     },
     config = function()
         require("neotest").setup({
