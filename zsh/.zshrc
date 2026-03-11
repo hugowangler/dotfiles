@@ -27,15 +27,16 @@ export PATH="$HOME/.local/bin:$GOBIN:$PATH"
 eval "$(zoxide init zsh)"
 source <(fzf --zsh)
 
-# NVM lazy-loader: defers ~300ms startup cost until first use
-_nvm_lazy_load() {
-  unfunction nvm node npm npx 2>/dev/null
+# NVM: add default node to PATH eagerly, lazy-load nvm itself
+_nvm_node_bin="$(ls -d "$NVM_DIR/versions/node/"*/bin 2>/dev/null | tail -1)"
+[ -d "$_nvm_node_bin" ] && PATH="$_nvm_node_bin:$PATH"
+unset _nvm_node_bin
+
+nvm() {
+  unfunction nvm 2>/dev/null
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  nvm "$@"
 }
-nvm()  { _nvm_lazy_load; nvm "$@"; }
-node() { _nvm_lazy_load; node "$@"; }
-npm()  { _nvm_lazy_load; npm "$@"; }
-npx()  { _nvm_lazy_load; npx "$@"; }
 
 # Plugins
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
