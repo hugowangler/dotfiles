@@ -71,7 +71,7 @@ let g:loaded_perl_provider = 0
 let g:loaded_ruby_provider = 0
 
 "Python nvim virtualenv
-let g:python3_host_prog='/Users/hugo/.venvs/py3nvim/bin/python'
+let g:python3_host_prog = expand('$HOME') . '/.venvs/py3nvim/bin/python'
 
 lua << EOF
 require('gitsigns').setup({

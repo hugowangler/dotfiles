@@ -6,8 +6,9 @@
 [commit]
 	gpgsign = true
 [user]
-	signingkey = 914C02A3D38AC56C     
+	name = Hugo Wangler
 	email = hugowangler@gmail.com
+	signingkey = 914C02A3D38AC56C
 [url "ssh://git@github.com/"]
 	insteadOf = https://github.com/
 [pull]

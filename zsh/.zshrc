@@ -1,14 +1,10 @@
-# -----------------------------------------------
 # Oh My Zsh
-# -----------------------------------------------
 export ZSH="$HOME/dotfiles/zsh/oh-my-zsh"
 ZSH_THEME=""
 plugins=(git kubectl)
 source "$ZSH/oh-my-zsh.sh"
 
-# -----------------------------------------------
 # Environment
-# -----------------------------------------------
 export CLICOLOR=1
 export GPG_TTY=$(tty)
 export LC_ALL=en_US.UTF-8
@@ -23,15 +19,11 @@ export GOPRIVATE=github.com/tickup-se
 
 export NVM_DIR="$HOME/.nvm"
 
-# -----------------------------------------------
 # PATH
-# -----------------------------------------------
 eval "$(/opt/homebrew/bin/brew shellenv)"
 export PATH="$HOME/.local/bin:$GOBIN:$PATH"
 
-# -----------------------------------------------
 # Tool integrations
-# -----------------------------------------------
 eval "$(zoxide init zsh)"
 source <(fzf --zsh)
 
@@ -45,24 +37,18 @@ node() { _nvm_lazy_load; node "$@"; }
 npm()  { _nvm_lazy_load; npm "$@"; }
 npx()  { _nvm_lazy_load; npx "$@"; }
 
-# -----------------------------------------------
 # Plugins
-# -----------------------------------------------
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
 source "$HOME/dotfiles/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh"
 source "$HOME/dotfiles/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
 source "$HOME/dotfiles/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$HOME/dotfiles/zsh/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh"
 
-# -----------------------------------------------
 # Completion
-# -----------------------------------------------
 zstyle ":completion:*" special-dirs false
 setopt globdots
 
-# -----------------------------------------------
 # Aliases
-# -----------------------------------------------
 alias reloadzsh=". ~/.zshrc && echo 'ZSH config reloaded from ~/.zshrc'"
 
 # Docker
@@ -77,6 +63,10 @@ alias kssd=kubectl-show-secret-data
 
 # Editor
 alias vi="nvim"
+
+# git
+alias gdd="git diff --no-ext-diff"
+alias gdds="git diff --no-ext-diff --staged"
 
 # Files
 alias ls="ls -A"
@@ -106,9 +96,7 @@ alias sosa="sesame open sesame"
 # dbt
 alias dbtf="$HOME/.local/bin/dbt"
 
-# -----------------------------------------------
 # Functions
-# -----------------------------------------------
 
 # kubectl secrets helper
 function kubectl-show-secret-data() {
@@ -120,12 +108,10 @@ function kubectl-show-secret-data() {
 }
 
 function list-oci-helm-chart() {
-  skopeo list-tags $(echo $1 | sed -e 's|oci://|docker://|') | \
+  skopeo list-tags $(echo "$1" | sed -e 's|oci://|docker://|') | \
     jq -r '.Tags[]' | sort -V
 }
 
-# -----------------------------------------------
 # Prompt
-# -----------------------------------------------
 autoload -U promptinit; promptinit
 prompt pure
