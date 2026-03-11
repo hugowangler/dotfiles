@@ -6,25 +6,24 @@ system, no tests.
 
 ## Repository structure
 
-```
-dotfiles/
-  archive/      # old config kept for reference (not deployed)
-  git/          # git config      -> stow target: ~/.config/git/config
-  idea/         # IdeaVim config  -> stow target: ~/.ideavimrc (unused, kept for reference)
-  nvim/         # neovim config   -> stow target: ~/.config/nvim/
-  tmux/         # tmux config     -> stow target: ~/.tmux.conf
-  zsh/          # zsh config      -> stow target: ~/.zshrc
-    oh-my-zsh/          # [submodule] ohmyzsh/ohmyzsh
-    plugins/
-      fast-syntax-highlighting/  # [submodule] zdharma-continuum/fast-syntax-highlighting
-      fzf-tab/                   # [submodule] Aloxaf/fzf-tab
-      zsh-autosuggestions/       # [submodule] zsh-users/zsh-autosuggestions
-      zsh-vim-mode/              # [submodule] softmoth/zsh-vim-mode
-```
+Each top-level directory is a Stow package. Internal paths mirror the target
+layout relative to `$HOME` (e.g. `git/.config/git/config` -> `~/.config/git/config`).
 
-Each top-level directory is a Stow package. The internal paths mirror the
-target layout relative to `$HOME`. For example `git/.config/git/config` gets
-symlinked to `~/.config/git/config`.
+| Package | Contents | Stow target |
+|---------|----------|-------------|
+| `git/` | git config | `~/.config/git/config` |
+| `idea/` | IdeaVim config (unused, kept for reference) | `~/.ideavimrc` |
+| `nvim/` | neovim config (Lua) | `~/.config/nvim/` |
+| `tmux/` | tmux config | `~/.tmux.conf` |
+| `zsh/` | zsh config + plugin submodules | `~/.zshrc` |
+| `archive/` | old VimScript nvim config (not deployed) | -- |
+
+**Neovim layout:** `init.lua` -> `config/lazy.lua` (bootstrap) -> `config/options.lua`,
+`config/keymaps.lua`, `plugins/*.lua` (one file per plugin/group, auto-discovered).
+
+**File search note:** `.fdignore` at repo root excludes `zsh/oh-my-zsh/` and
+`zsh/plugins/` (submodule dirs) from `fd` searches. Agents using file search
+tools should be aware these directories exist but are external code.
 
 ## Commands
 
@@ -33,53 +32,40 @@ There is no build, lint, or test pipeline for this repo.
 ### Deployment (GNU Stow)
 
 ```sh
-# Deploy a single package (e.g. zsh)
-stow -d ~/dotfiles -t ~ zsh
-
-# Deploy all packages
-stow -d ~/dotfiles -t ~ git idea nvim tmux zsh
-
-# Dry-run to preview what would be symlinked
-stow -d ~/dotfiles -t ~ -n -v zsh
+stow -d ~/dotfiles -t ~ zsh            # deploy one package
+stow -d ~/dotfiles -t ~ git idea nvim tmux zsh  # deploy all
+stow -d ~/dotfiles -t ~ -n -v zsh      # dry-run
 ```
 
 ### Git submodules
 
-```sh
-# Clone with submodules
-git clone --recurse-submodules <url>
+All 5 submodules are under `zsh/` (oh-my-zsh + 4 plugins). Never modify files
+inside submodule directories -- configure plugins in `.zshrc` instead.
 
-# Update all submodules to latest upstream
-git submodule update --remote --merge
+```sh
+git clone --recurse-submodules <url>
+git submodule update --remote --merge   # update all to latest upstream
 ```
 
-### Neovim plugins (vim-plug)
+### Neovim plugins (lazy.nvim)
 
-Plugins are managed by vim-plug in `nvim/.config/nvim/init.vim`.
+Plugin specs in `nvim/.config/nvim/lua/plugins/*.lua` are auto-discovered.
+No manual install needed -- lazy.nvim installs on startup.
 
 ```sh
-# Install plugins
-nvim +PlugInstall +qall
-
-# Update plugins
-nvim +PlugUpdate +qall
+nvim +"Lazy"            # plugin UI
+nvim +"Lazy sync" +qall # update all plugins headless
 ```
 
 ### Reload configs without restarting
 
 - **zsh**: `source ~/.zshrc` (or alias `reloadzsh`)
-- **tmux**: `<prefix> r` (bound in .tmux.conf) or `tmux source-file ~/.tmux.conf`
-- **nvim**: `:source $MYVIMRC` (or `<leader>sv`)
-
-## Git submodules -- do not edit
-
-The directories marked `[submodule]` above are external repos. Never modify
-files inside them. If a plugin needs configuration, do it in the parent config
-file (e.g. plugin settings go in `zsh/.zshrc`, not inside `zsh/plugins/*/`).
+- **tmux**: `<prefix> r` or `tmux source-file ~/.tmux.conf`
+- **nvim**: `:source $MYVIMRC` or restart
 
 ## Commit conventions
 
-This repo uses conventional commit prefixes with **lowercase** messages:
+Conventional commit prefixes with **lowercase** messages, no scope parentheses:
 
 ```
 feat: add fzf-tab plugin
@@ -87,68 +73,70 @@ fix: correct tmux pane splitting on mac
 chore: update submodules
 ```
 
-Prefixes: `feat`, `fix`, `chore`, `docs`, `refactor`. Keep messages short
-(under 72 characters). No scope parentheses are used.
+Prefixes: `feat`, `fix`, `chore`, `docs`, `refactor`. Under 72 characters.
 
 ## Code style
 
 ### Shell (zsh)
 
-- Use `# Section name` for section headers -- single-line comments, no
-  decorative separators or banner-style comment blocks.
+- `# Section name` for headers -- single-line comments, no decorative banners.
 - Group related aliases under a sub-comment (e.g. `# Docker`, `# Kubernetes`).
 - Double-quote variables and strings: `"$HOME/path"`, `"$ZSH"`.
 - Use `$HOME` instead of `~` in exports and variable assignments.
 - 2-space indentation inside functions and control structures.
-- Functions use the `function name() { }` form.
+- Functions use `function name() { }` form.
 - Use `command -v` for command existence checks, not `which`.
-- Keep `.stow-local-ignore` updated if adding directories that should not
-  be symlinked (e.g. `zsh/plugins` is ignored since plugins are sourced by
-  absolute path from the dotfiles directory).
+- Keep `.stow-local-ignore` updated if adding dirs that should not be symlinked.
 
-### Vim / Neovim
+### Neovim (Lua)
 
-- `init.vim` is the entry point; additional config goes in `plugin/*.vim`.
-- 4-space indentation (`tabstop=4`, `shiftwidth=4`, `expandtab`).
-- Leader key is `<Space>`.
-- Plugin declarations go inside the `plug#begin` / `plug#end` block in
-  `init.vim`. Plugin-specific settings go in `plugin/<name>.vim`.
-- Lua blocks are inlined via `lua << EOF ... EOF` in vimscript files.
+- Pure Lua config targeting Neovim 0.11+. No VimScript.
+- `init.lua` is a single `require("config.lazy")` -- all setup flows from there.
+- Core settings in `lua/config/`, plugin specs in `lua/plugins/*.lua`.
+- 4-space indentation, double-quoted strings in all Lua files.
+- `mapleader = " "` (Space), `maplocalleader = "\\"` (backslash).
+- Line length guide: `colorcolumn = "120"`.
+- Disabled providers: perl, ruby, python3.
+- LSP uses native `vim.lsp.config()` / `vim.lsp.enable()` API (not the
+  deprecated `require('lspconfig').<server>.setup()` pattern).
+- Mason installs LSP servers, but ruff is installed externally via
+  `uv tool install ruff` and enabled with `vim.lsp.enable("ruff")`.
+- Prefer `opts = {}` in lazy.nvim specs over `config = function()` when the
+  setup call takes a plain table. Use `config` only for extra logic.
+- Use `event`, `keys`, `cmd`, or `ft` for lazy loading. Always provide
+  `desc = "..."` in keymap definitions.
 
 ### Tmux
 
-- Prefix is `C-a` (not the default `C-b`).
-- Vim-tmux-navigator integration is configured -- pane switching uses
-  `C-h/j/k/l` and is shared between tmux and neovim.
-- vi mode is enabled for copy mode (`mode-keys vi`).
+- Prefix is `C-a` (not default `C-b`).
+- Vim-tmux-navigator: pane switching via `C-h/j/k/l` (shared with neovim).
+- Vi mode for copy mode (`mode-keys vi`).
+- Windows/panes are 1-indexed. `escape-time 0`.
+- TPM (tmux plugin manager) with `tmux-yank` plugin.
 
 ### Git config
 
-- GPG signing is enabled for commits (`commit.gpgsign = true`).
-- SSH is used for all GitHub URLs (`url.ssh://git@github.com/.insteadOf`).
+- GPG signing enabled (`commit.gpgsign = true`).
+- SSH for all GitHub URLs (`url.ssh://git@github.com/.insteadOf`).
 - Fast-forward only pulls (`pull.ff = only`).
 - Difftastic is the default diff viewer (`diff.external = difft`).
-  `git diff` and oh-my-zsh aliases (`gd`, `gds`) all use difftastic.
-  Use shell alias `gdd` for standard patch-format diff output.
+  `git diff` and oh-my-zsh aliases (`gd`, `gds`) use difftastic.
+  Use shell alias `gdd` for standard patch-format diff.
 
 ## Things to avoid
 
-- **No secrets or keys.** The git config contains a public signing key ID,
-  which is fine. Never add private keys, tokens, or credentials.
-- **No hardcoded absolute paths.** Always use `$HOME`, `$GOPATH`, etc.
-  The one exception is `/opt/homebrew/bin/brew` which is the standard
-  macOS ARM Homebrew path.
+- **No secrets or keys.** Never add private keys, tokens, or credentials.
+- **No hardcoded absolute paths.** Use `$HOME`, `$GOPATH`, etc. Exception:
+  `/opt/homebrew/bin/brew` (standard macOS ARM Homebrew path).
 - **No modifications to submodule contents.** Configure plugins externally.
-- **No generated or cache files.** The `.gitignore` excludes `.DS_Store`,
-  `.mypy_cache`, and `.netrwhist`. Add similar patterns for any new tools.
-- **No package manager lock files.** This repo has no `package.json`,
-  `requirements.txt`, or similar. It manages only config files.
+- **No generated or cache files.** `.gitignore` excludes `.DS_Store`,
+  `.mypy_cache`, `.netrwhist`. Add similar patterns for new tools.
+- **No package manager lock files.** This repo manages only config files.
 
 ## Environment context
 
-Target platform is macOS (Apple Silicon). The typical terminal setup is
-iTerm2 running tmux sessions with zsh as the shell (Pure prompt).
+Target: macOS (Apple Silicon), iTerm2 + tmux + zsh (Pure prompt).
 
 - Homebrew at `/opt/homebrew`
-- Tools assumed installed: `fzf`, `rg` (ripgrep), `zoxide`, `jq`, `difft`,
-  `go`, `nvm`/`node`, `kubectl`, `docker`, `stow`
+- Assumed tools: `fzf`, `fd`, `rg`, `zoxide`, `jq`, `difft`, `go`, `nvm`/`node`,
+  `uv`, `kubectl`, `docker`, `stow`
