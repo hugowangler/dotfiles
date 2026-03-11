@@ -21,7 +21,6 @@ return {
         },
         opts = {
             ensure_installed = {
-                "pyright",
                 "gopls",
                 "lua_ls",
                 "bashls",
@@ -42,16 +41,25 @@ return {
             })
 
             -- Python
-            vim.lsp.config("pyright", {
+            vim.lsp.config("basedpyright", {
                 settings = {
-                    pyright = {
-                        -- Let ruff handle import sorting
-                        disableOrganizeImports = true,
+                    basedpyright = {
+                        analysis = {
+                            -- Let ruff handle import sorting
+                            disableOrganizeImports = true,
+                            typeCheckingMode = "standard",
+                        },
                     },
                 },
             })
-
-            vim.lsp.config("ruff", {})
+            vim.lsp.config("ruff", {
+                init_options = {
+                    settings = {
+                        lineLength = 120,
+                    },
+                },
+            })
+            vim.lsp.enable("basedpyright")
             vim.lsp.enable("ruff")
 
             -- Go
@@ -63,6 +71,23 @@ return {
             -- Bash
             vim.lsp.config("bashls", {})
 
+            -- Format on save (toggleable with <leader>uf)
+            vim.g.autoformat = true
+
+            vim.api.nvim_create_autocmd("BufWritePre", {
+                group = vim.api.nvim_create_augroup("LspFormatOnSave", { clear = true }),
+                callback = function()
+                    if vim.g.autoformat then
+                        vim.lsp.buf.format({ async = false, timeout_ms = 3000 })
+                    end
+                end,
+            })
+
+            vim.keymap.set("n", "<leader>uf", function()
+                vim.g.autoformat = not vim.g.autoformat
+                vim.notify("Format on save: " .. (vim.g.autoformat and "ON" or "OFF"))
+            end, { desc = "Toggle format on save" })
+
             -- Keymaps and per-attach logic
             vim.api.nvim_create_autocmd("LspAttach", {
                 group = vim.api.nvim_create_augroup("LspKeymaps", { clear = true }),
@@ -70,7 +95,7 @@ return {
                     local client = vim.lsp.get_client_by_id(args.data.client_id)
                     if not client then return end
 
-                    -- Disable ruff hover in favor of pyright
+                    -- Disable ruff hover in favor of basedpyright
                     if client.name == "ruff" then
                         client.server_capabilities.hoverProvider = false
                     end
@@ -84,8 +109,9 @@ return {
                     map("n", "grt", vim.lsp.buf.type_definition, "Go to type definition")
                     map("n", "<leader>qf", vim.lsp.buf.code_action, "Code action")
                     map("n", "<leader>F", function() vim.lsp.buf.format({ async = true }) end, "Format buffer")
-                    map("n", "gn", function() vim.diagnostic.jump({ count = 1 }) end, "Next diagnostic")
-                    map("n", "gp", function() vim.diagnostic.jump({ count = -1 }) end, "Previous diagnostic")
+                    map("n", "gn", function() vim.diagnostic.jump({ count = 1, float = true }) end, "Next diagnostic")
+                    map("n", "gp", function() vim.diagnostic.jump({ count = -1, float = true }) end, "Previous diagnostic")
+                    map("n", "gl", vim.diagnostic.open_float, "Show diagnostic float")
                 end,
             })
         end,

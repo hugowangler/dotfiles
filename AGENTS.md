@@ -132,6 +132,10 @@ Prefixes: `feat`, `fix`, `chore`, `docs`, `refactor`. Under 72 characters.
 - **No generated or cache files.** `.gitignore` excludes `.DS_Store`,
   `.mypy_cache`, `.netrwhist`. Add similar patterns for new tools.
 - **No package manager lock files.** This repo manages only config files.
+- **No reading files outside this repo.** Never read from `~/.local/share/`,
+  `~/.config/` (the deployed symlink targets), or any other path outside
+  `/Users/hugo/dotfiles/`. All configuration lives in this repository under
+  the stow package directories.
 
 ## Environment context
 
