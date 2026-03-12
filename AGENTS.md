@@ -105,6 +105,11 @@ Prefixes: `feat`, `fix`, `chore`, `docs`, `refactor`. Under 72 characters.
   setup call takes a plain table. Use `config` only for extra logic.
 - Use `event`, `keys`, `cmd`, or `ft` for lazy loading. Always provide
   `desc = "..."` in keymap definitions.
+- Keymap groups use `<leader>` prefixes registered in which-key:
+  `<leader>f` (find), `<leader>h` (git hunk), `<leader>q` (quickfix),
+  `<leader>t` (test), `<leader>u` (toggle), `<leader>o` (opencode).
+  Toggles go under `<leader>u`. When adding keymaps, place them in the
+  appropriate existing group rather than creating new top-level prefixes.
 
 ### Tmux
 

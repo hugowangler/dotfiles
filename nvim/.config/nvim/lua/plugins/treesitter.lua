@@ -2,7 +2,7 @@ return {
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
-        event = { "BufReadPost", "BufNewFile" },
+        event = "VeryLazy",
         main = "nvim-treesitter",
         opts = {
             ensure_installed = {
@@ -13,12 +13,14 @@ return {
                 "json",
                 "lua",
                 "markdown",
+                "markdown_inline",
                 "python",
                 "typescript",
                 "vim",
                 "vimdoc",
                 "yaml",
             },
+            auto_install = true,
             highlight = { enable = true },
             indent = { enable = true },
         },
