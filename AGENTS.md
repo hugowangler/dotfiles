@@ -21,9 +21,9 @@ layout relative to `$HOME` (e.g. `git/.config/git/config` -> `~/.config/git/conf
 **Neovim layout:** `init.lua` -> `config/lazy.lua` (bootstrap) -> `config/options.lua`,
 `config/keymaps.lua`, `plugins/*.lua` (one file per plugin/group, auto-discovered).
 
-**File search note:** `.fdignore` at repo root excludes `zsh/oh-my-zsh/` and
-`zsh/plugins/` (submodule dirs) from `fd` searches. Agents using file search
-tools should be aware these directories exist but are external code.
+**File search note:** `.ignore` at repo root excludes `zsh/oh-my-zsh/` and
+`zsh/plugins/` (submodule dirs) from `fd` and `rg` searches. Agents using file
+search tools should be aware these directories exist but are external code.
 
 ## Commands
 
