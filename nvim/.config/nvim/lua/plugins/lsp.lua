@@ -121,8 +121,10 @@ return {
                         vim.keymap.set(mode, lhs, rhs, { buffer = args.buf, desc = "LSP: " .. desc })
                     end
 
-                    -- Neovim 0.11 built-ins: gd, K, grr, gri, grn, gra
+                    -- Neovim 0.11 built-ins: K, grr, grn, gra
                     -- Custom keymaps for actions without built-in bindings
+                    map("n", "gd", vim.lsp.buf.definition, "Go to definition")
+                    map("n", "gD", vim.lsp.buf.implementation, "Go to implementation")
                     map("n", "grt", vim.lsp.buf.type_definition, "Go to type definition")
                     map("n", "<leader>qf", vim.lsp.buf.code_action, "Code action")
                     map("n", "<leader>F", function() vim.lsp.buf.format({ async = true }) end, "Format buffer")
