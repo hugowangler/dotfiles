@@ -6,6 +6,7 @@ return {
         wk.setup()
         wk.add({
             { "<leader>f", group = "find" },
+            { "<leader>g", group = "git" },
             { "<leader>h", group = "git hunk" },
             { "<leader>q", group = "quickfix" },
             { "<leader>t", group = "test" },
