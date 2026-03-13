@@ -9,15 +9,21 @@ opt.tabstop = 4
 opt.softtabstop = 4
 opt.shiftwidth = 4
 opt.expandtab = true
+opt.smartindent = true
 
 -- General
-opt.updatetime = 300
+opt.updatetime = 200
 opt.colorcolumn = "120"
 opt.spelllang = "en"
 opt.signcolumn = "yes"
 opt.splitright = true
 opt.splitbelow = true
 opt.undofile = true
+opt.winborder = "rounded"
+opt.cursorline = true
+opt.ignorecase = true
+opt.smartcase = true
+opt.scrolloff = 8
 
 -- Disable unused providers
 vim.g.loaded_perl_provider = 0
