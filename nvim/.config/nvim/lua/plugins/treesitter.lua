@@ -2,8 +2,7 @@ return {
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
-        event = "VeryLazy",
-        main = "nvim-treesitter",
+        lazy = false,
         opts = {
             ensure_installed = {
                 "bash",
@@ -20,10 +19,16 @@ return {
                 "vimdoc",
                 "yaml",
             },
-            auto_install = true,
-            highlight = { enable = true },
-            indent = { enable = true },
         },
+        config = function(_, opts)
+            require("nvim-treesitter").install(opts.ensure_installed)
+            vim.api.nvim_create_autocmd("FileType", {
+                group = vim.api.nvim_create_augroup("treesitter_highlight", { clear = true }),
+                callback = function(args)
+                    pcall(vim.treesitter.start, args.buf)
+                end,
+            })
+        end,
     },
     {
         "nvim-treesitter/nvim-treesitter-textobjects",
