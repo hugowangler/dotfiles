@@ -11,15 +11,17 @@ layout relative to `$HOME` (e.g. `git/.config/git/config` -> `~/.config/git/conf
 
 | Package | Contents | Stow target |
 |---------|----------|-------------|
+| `bin/` | shell scripts | `~/.local/bin/` |
 | `git/` | git config | `~/.config/git/config` |
 | `idea/` | IdeaVim config (unused, kept for reference) | `~/.ideavimrc` |
 | `nvim/` | neovim config (Lua) | `~/.config/nvim/` |
 | `tmux/` | tmux config | `~/.tmux.conf` |
-| `zsh/` | zsh config + plugin submodules | `~/.zshrc` |
+| `zsh/` | zsh config + starship.toml + plugin submodules | `~/.zshrc`, `~/.config/starship.toml` |
 | `archive/` | old VimScript nvim config (not deployed) | -- |
 
 **Neovim layout:** `init.lua` -> `config/lazy.lua` (bootstrap) -> `config/options.lua`,
-`config/keymaps.lua`, `plugins/*.lua` (one file per plugin/group, auto-discovered).
+`config/keymaps.lua`, `config/autocommands.lua`, `plugins/*.lua` (one file per
+plugin/group, auto-discovered).
 
 **File search note:** `.ignore` at repo root excludes `zsh/oh-my-zsh/` and
 `zsh/plugins/` (submodule dirs) from `fd` and `rg` searches. Agents using file
@@ -41,6 +43,9 @@ stow -d ~/dotfiles -t ~ -n -v zsh      # dry-run
 
 All 5 submodules are under `zsh/` (oh-my-zsh + 4 plugins). Never modify files
 inside submodule directories -- configure plugins in `.zshrc` instead.
+`oh-my-zsh` is referenced directly as `$HOME/dotfiles/zsh/oh-my-zsh` in `.zshrc`
+(not symlinked by Stow). Plugins are sourced manually from
+`$HOME/dotfiles/zsh/plugins/`, not through OMZ's plugin mechanism.
 
 ```sh
 git clone --recurse-submodules <url>
@@ -50,7 +55,8 @@ git submodule update --remote --merge   # update all to latest upstream
 ### Neovim plugins (lazy.nvim)
 
 Plugin specs in `nvim/.config/nvim/lua/plugins/*.lua` are auto-discovered.
-No manual install needed -- lazy.nvim installs on startup.
+No manual install needed -- lazy.nvim installs on startup. `lazy-lock.json` is
+tracked in git to pin plugin commits.
 
 ```sh
 nvim +"Lazy"            # plugin UI
@@ -97,19 +103,29 @@ Prefixes: `feat`, `fix`, `chore`, `docs`, `refactor`. Under 72 characters.
 - `mapleader = " "` (Space), `maplocalleader = "\\"` (backslash).
 - Line length guide: `colorcolumn = "120"`.
 - Disabled providers: perl, ruby, python3.
+- Global options of note: `winborder = "rounded"` (all float borders), `undofile = true`
+  (persistent undo), `scrolloff = 8`, `splitright = true`, `splitbelow = true`.
+- `vim.g.autoformat = true` enables format-on-save globally by default.
 - LSP uses native `vim.lsp.config()` / `vim.lsp.enable()` API (not the
   deprecated `require('lspconfig').<server>.setup()` pattern).
-- Mason installs LSP servers, but ruff is installed externally via
-  `uv tool install ruff` and enabled with `vim.lsp.enable("ruff")`.
+- Mason auto-installs `gopls`, `lua_ls`, `bashls`. External (non-Mason) servers:
+  `ruff` and `ty` (Python), both installed via `uv tool install` and enabled with
+  `vim.lsp.enable()`. Neovim 0.11 built-in LSP keymaps (`K`, `grr`, `grn`, `gra`)
+  are relied upon; only missing bindings are added manually.
 - Prefer `opts = {}` in lazy.nvim specs over `config = function()` when the
   setup call takes a plain table. Use `config` only for extra logic.
 - Use `event`, `keys`, `cmd`, or `ft` for lazy loading. Always provide
   `desc = "..."` in keymap definitions.
 - Keymap groups use `<leader>` prefixes registered in which-key:
-  `<leader>f` (find), `<leader>h` (git hunk), `<leader>q` (quickfix),
-  `<leader>t` (test), `<leader>u` (toggle), `<leader>o` (opencode).
-  Toggles go under `<leader>u`. When adding keymaps, place them in the
-  appropriate existing group rather than creating new top-level prefixes.
+  `<leader>f` (find), `<leader>g` (git), `<leader>h` (git hunk),
+  `<leader>q` (quickfix), `<leader>t` (test), `<leader>u` (toggle),
+  `<leader>o` (opencode). Toggles go under `<leader>u`. When adding keymaps,
+  place them in the appropriate existing group rather than creating new top-level
+  prefixes.
+- Notable toggle keymaps: `<leader>uf` format-on-save, `<leader>uh` inlay hints,
+  `<leader>ud` diagnostics, `<leader>gg` lazygit, `<leader>uo` opencode panel.
+- `<C-f>` in normal mode launches `tmux-sessionizer` in a new tmux window.
+- `<leader>R` reloads `$MYVIMRC`. `q:` is disabled (no-op).
 
 ### Tmux
 
@@ -117,6 +133,13 @@ Prefixes: `feat`, `fix`, `chore`, `docs`, `refactor`. Under 72 characters.
 - Vim-tmux-navigator: pane switching via `C-h/j/k/l` (shared with neovim).
 - Vi mode for copy mode (`mode-keys vi`).
 - Windows/panes are 1-indexed. `escape-time 0`.
+- `focus-events on` — required for neovim autoread and gitsigns to work correctly.
+- Status bar is at the **top** (not the default bottom); colors match tokyonight-night.
+- `renumber-windows on` keeps window indices contiguous after closing.
+- `history-limit 50000`. `mouse on`.
+- Pane splits via `M-h/j/k/l` (iTerm2 sends these for `Cmd+h/j/k/l`); splits
+  preserve the current pane's path.
+- `<prefix> H/J/K/L` resize pane by 5 (repeatable). `<prefix> f` opens sessionizer.
 - TPM (tmux plugin manager) with `tmux-yank` plugin.
 
 ### Git config
@@ -127,6 +150,8 @@ Prefixes: `feat`, `fix`, `chore`, `docs`, `refactor`. Under 72 characters.
 - Difftastic is the default diff viewer (`diff.external = difft`).
   `git diff` and oh-my-zsh aliases (`gd`, `gds`) use difftastic.
   Use shell alias `gdd` for standard patch-format diff.
+- Git aliases: `sla` (recent graph log: `log --oneline --decorate --graph --all -20`),
+  `lb` (interactive fzf branch switcher sorted by recency).
 
 ## Things to avoid
 
@@ -144,7 +169,7 @@ Prefixes: `feat`, `fix`, `chore`, `docs`, `refactor`. Under 72 characters.
 
 ## Environment context
 
-Target: macOS (Apple Silicon), iTerm2 + tmux + zsh (Pure prompt).
+Target: macOS (Apple Silicon), iTerm2 + tmux + zsh (Starship prompt).
 
 - Homebrew at `/opt/homebrew`
 - Assumed tools: `fzf`, `fd`, `rg`, `zoxide`, `jq`, `difft`, `go`, `nvm`/`node`,
