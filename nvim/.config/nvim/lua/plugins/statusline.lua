@@ -16,7 +16,7 @@ return {
             lualine_c = { "filename" },
             lualine_x = { "diagnostics", "filetype" },
             lualine_y = {},
-            lualine_z = { "location" },
+            lualine_z = { { "location", separator = { right = "" } } },
         },
         extensions = { "nvim-tree", "fzf", "lazy", "mason", "fugitive", "quickfix" },
     },
