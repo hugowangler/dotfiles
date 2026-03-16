@@ -114,5 +114,4 @@ function list-oci-helm-chart() {
 }
 
 # Prompt
-autoload -U promptinit; promptinit
-prompt pure
+eval "$(starship init zsh)"
