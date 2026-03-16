@@ -1,29 +1,28 @@
-local opt = vim.opt
-
 -- Line numbers
-opt.number = true
-opt.relativenumber = true
+vim.o.number = true
+vim.o.relativenumber = true
 
 -- Tabs & indentation
-opt.tabstop = 4
-opt.softtabstop = 4
-opt.shiftwidth = 4
-opt.expandtab = true
-opt.smartindent = true
+vim.o.tabstop = 4
+vim.o.softtabstop = 4
+vim.o.shiftwidth = 4
+vim.o.expandtab = true
+vim.o.smartindent = true
 
 -- General
-opt.updatetime = 200
-opt.colorcolumn = "120"
-opt.spelllang = "en"
-opt.signcolumn = "yes"
-opt.splitright = true
-opt.splitbelow = true
-opt.undofile = true
-opt.winborder = "rounded"
-opt.cursorline = true
-opt.ignorecase = true
-opt.smartcase = true
-opt.scrolloff = 8
+vim.o.updatetime = 200
+vim.o.colorcolumn = "120"
+vim.o.spelllang = "en"
+vim.o.signcolumn = "yes"
+vim.o.splitright = true
+vim.o.splitbelow = true
+vim.o.undofile = true
+vim.o.winborder = "rounded"
+vim.o.cursorline = true
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.o.scrolloff = 8
+vim.o.wrap = false
 
 -- Disable unused providers
 vim.g.loaded_perl_provider = 0
