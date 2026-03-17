@@ -55,8 +55,7 @@ git submodule update --remote --merge   # update all to latest upstream
 ### Neovim plugins (lazy.nvim)
 
 Plugin specs in `nvim/.config/nvim/lua/plugins/*.lua` are auto-discovered.
-No manual install needed -- lazy.nvim installs on startup. `lazy-lock.json` is
-tracked in git to pin plugin commits.
+No manual install needed -- lazy.nvim installs on startup.
 
 ```sh
 nvim +"Lazy"            # plugin UI
