@@ -8,6 +8,7 @@ return {
         { "<leader>fb", function() require("fzf-lua").buffers() end,   desc = "Buffers" },
         { "<leader>/",  function() require("fzf-lua").blines() end,    desc = "Buffer lines" },
         { "<leader>fh", function() require("fzf-lua").oldfiles() end,  desc = "Recent files" },
+        { "<leader>fF", function() require("fzf-lua").files({ no_ignore = true }) end, desc = "Find files (no gitignore)" },
     },
     opts = {},
 }

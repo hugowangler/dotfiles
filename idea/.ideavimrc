@@ -1,9 +1,10 @@
-source ~/dotfiles/nvim/.config/nvim/init.vim
+"source ~/dotfiles/nvim/.config/nvim/init.vim
 
 let NERDTreeQuitOnOpen=1
 let mapleader=" "
 
 set quickscope
+set commentary
 
 nmap <leader>si :source ~/.ideavimrc<CR>
 

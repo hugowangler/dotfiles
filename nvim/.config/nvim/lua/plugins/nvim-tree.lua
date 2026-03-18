@@ -2,7 +2,7 @@ return {
     "nvim-tree/nvim-tree.lua",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     keys = {
-        { "<leader>e", "<cmd>NvimTreeToggle<CR>", desc = "Toggle file explorer" },
+        { "<leader>e", "<cmd>NvimTreeFindFileToggle<CR>", desc = "Toggle file explorer" },
     },
     opts = {
         view = {
@@ -28,6 +28,9 @@ return {
         actions = {
             open_file = {
                 quit_on_open = true,
+                window_picker = {
+                    enable = false,
+                },
             },
         },
     },

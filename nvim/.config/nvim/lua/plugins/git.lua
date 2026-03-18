@@ -4,12 +4,14 @@ return {
         event = { "BufReadPre", "BufNewFile" },
         config = function()
             require("gitsigns").setup({
+                current_line_blame = true,
                 on_attach = function(bufnr)
                     local gs = require("gitsigns")
                     local map = function(mode, lhs, rhs, desc)
                         vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
                     end
 
+                    map("n", "<leader>gb", gs.toggle_current_line_blame, "Toggle line blame")
                     map("n", "<leader>hp", gs.preview_hunk, "Preview hunk")
                     map("n", "<leader>hs", gs.stage_hunk, "Stage hunk")
                     map("n", "<leader>hr", gs.reset_hunk, "Reset hunk")
