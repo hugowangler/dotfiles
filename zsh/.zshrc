@@ -97,6 +97,9 @@ alias sosa="sesame open sesame"
 # dbt
 alias dbtf="$HOME/.local/bin/dbt"
 
+# opencode
+alias oc="opencode"
+
 # Functions
 
 # kubectl secrets helper
