@@ -9,7 +9,10 @@ return {
         indent = {
             animate = {
                 enabled = false,
-            }
+            },
+            scope = {
+                enabled = false,
+            },
         },
         lazygit = {},
     }
