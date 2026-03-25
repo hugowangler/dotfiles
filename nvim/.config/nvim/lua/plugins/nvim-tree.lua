@@ -20,6 +20,8 @@ return {
                 "\\.pyc$",
                 "\\.pytest_cache",
                 "\\.mypy_cache",
+                "\\.ruff_cache",
+                "^\\.tmp",
                 "coverage",
                 "\\.next",
                 "htmlcov",
