@@ -116,5 +116,8 @@ function list-oci-helm-chart() {
     jq -r '.Tags[]' | sort -V
 }
 
+# Secrets from macOS Keychain
+export GITHUB_TOKEN_MCP=$(security find-generic-password -a "$USER" -s "GITHUB_TOKEN_MCP" -w)
+
 # Prompt
 eval "$(starship init zsh)"

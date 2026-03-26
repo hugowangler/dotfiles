@@ -1,0 +1,49 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permission": {
+    "lsp": "allow"
+  },
+  "mcp": {
+    "tickup": {
+      "type": "remote",
+      "url": "https://mcp.etl.tickup.net/mcp"
+    },
+    "clickhouse-docs": {
+      "type": "remote",
+      "url": "https://clickhouse.mcp.kapa.ai/",
+      "oauth": {}
+    },
+    "ask_polars": {
+      "type": "remote",
+      "url": "https://mcp.pola.rs/mcp"
+    },
+    "docling": {
+        "type": "local",
+        "command": ["docling-mcp-server"]
+    },
+    "github": {
+      "type": "local",
+      "command": [
+        "docker", "run", "-i", "--rm",
+        "-e", "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "ghcr.io/github/github-mcp-server"
+      ],
+      "environment": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "{env:GITHUB_TOKEN_MCP}"
+      }
+    }
+  },
+  "lsp": {
+    "pyright": {
+      "disabled": true
+    },
+    "ty": {
+      "command": ["ty", "server"],
+      "extensions": [".py", ".pyi"]
+    },
+    "ruff": {
+      "command": ["ruff", "server"],
+      "extensions": [".py", ".pyi"]
+    }
+  }
+}
