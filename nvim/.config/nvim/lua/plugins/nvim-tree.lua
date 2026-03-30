@@ -1,6 +1,6 @@
 return {
     "nvim-tree/nvim-tree.lua",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    dependencies = { "echasnovski/mini.icons" },
     keys = {
         { "<leader>e", "<cmd>NvimTreeFindFileToggle<CR>", desc = "Toggle file explorer" },
     },
