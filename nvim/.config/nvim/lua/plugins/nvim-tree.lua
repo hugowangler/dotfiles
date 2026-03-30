@@ -26,6 +26,7 @@ return {
                 "\\.next",
                 "htmlcov",
                 "venv",
+                "\\.DS_Store",
             },
         },
         actions = {
