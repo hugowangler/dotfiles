@@ -5,6 +5,9 @@ return {
         { "<leader>e", "<cmd>NvimTreeFindFileToggle<CR>", desc = "Toggle file explorer" },
     },
     opts = {
+        git = {
+            ignore = false,
+        },
         view = {
             width = 50,
             number = true,
@@ -15,18 +18,18 @@ return {
             git_ignored = false,
             custom = {
                 "^\\.git$",
-                "node_modules",
-                "__pycache__",
+                "^node_modules$",
+                "^__pycache__$",
                 "\\.pyc$",
-                "\\.pytest_cache",
-                "\\.mypy_cache",
-                "\\.ruff_cache",
+                "^\\.pytest_cache$",
+                "^\\.mypy_cache$",
+                "^\\.ruff_cache$",
                 "^\\.tmp",
-                "coverage",
-                "\\.next",
-                "htmlcov",
-                "venv",
-                "\\.DS_Store",
+                "^coverage$",
+                "^\\.next$",
+                "^htmlcov$",
+                "^%.?venv$",
+                "^\\.DS_Store$",
             },
         },
         actions = {
