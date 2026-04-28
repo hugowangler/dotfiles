@@ -121,3 +121,13 @@ export GITHUB_TOKEN_MCP=$(security find-generic-password -a "$USER" -s "GITHUB_T
 
 # Prompt
 eval "$(starship init zsh)"
+
+# bun completions
+[ -s "/Users/hugo/.bun/_bun" ] && source "/Users/hugo/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# Kubernetes config (added by kubeconfig installer)
+export KUBECONFIG=/Users/hugo/.kube/config

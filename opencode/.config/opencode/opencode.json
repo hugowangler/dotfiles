@@ -31,6 +31,10 @@
       "environment": {
         "GITHUB_PERSONAL_ACCESS_TOKEN": "{env:GITHUB_TOKEN_MCP}"
       }
+    },
+    "linear": {
+      "type": "remote",
+      "url": "https://mcp.linear.app/mcp"
     }
   },
   "lsp": {

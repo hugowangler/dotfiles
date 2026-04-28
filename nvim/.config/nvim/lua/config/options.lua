@@ -22,7 +22,7 @@ vim.o.cursorline = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.scrolloff = 8
-vim.o.wrap = false
+vim.o.wrap = true
 
 -- Disable unused providers
 vim.g.loaded_perl_provider = 0
