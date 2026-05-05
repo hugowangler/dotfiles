@@ -13,6 +13,9 @@ return {
         local luasnip = require("luasnip")
 
         cmp.setup({
+            completion = {
+                autocomplete = false,
+            },
             snippet = {
                 expand = function(args)
                     luasnip.lsp_expand(args.body)
@@ -48,7 +51,7 @@ return {
                 { name = "nvim_lsp" },
                 { name = "luasnip" },
             }, {
-                { name = "buffer" },
+                { name = "buffer", keyword_length = 4, max_item_count = 5 },
                 { name = "path" },
             }),
         })

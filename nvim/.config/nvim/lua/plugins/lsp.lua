@@ -43,7 +43,9 @@ return {
             -- Python
             vim.lsp.config("ty", {
                 settings = {
-                    ty = {},
+                    ty = {
+                        diagnosticMode = "off",
+                    },
                 },
             })
             vim.lsp.config("ruff", {
@@ -112,6 +114,10 @@ return {
                     local client = vim.lsp.get_client_by_id(args.data.client_id)
                     if not client then return end
 
+                    if client.name == "ruff" then
+                        client.server_capabilities.completionProvider = nil
+                    end
+
                     -- Enable inlay hints when supported
                     if client:supports_method("textDocument/inlayHint") then
                         vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
@@ -126,7 +132,20 @@ return {
                     map("n", "gd", vim.lsp.buf.definition, "Go to definition")
                     map("n", "gD", vim.lsp.buf.implementation, "Go to implementation")
                     map("n", "grt", vim.lsp.buf.type_definition, "Go to type definition")
-                    map("n", "<leader>qf", vim.lsp.buf.code_action, "Code action")
+                    map("n", "<leader>qf", function()
+                        require("fzf-lua").lsp_code_actions({
+                            previewer = false,
+                            winopts = {
+                                height = 0.35,
+                                width = 0.60,
+                                row = 0.45,
+                                col = 0.50,
+                            },
+                            fzf_opts = {
+                                ["--info"] = "hidden",
+                            },
+                        })
+                    end, "Code action")
                     map("n", "<leader>F", function() vim.lsp.buf.format({ async = true }) end, "Format buffer")
                     map("n", "gn", function() vim.diagnostic.jump({ count = 1, float = true }) end, "Next diagnostic")
                     map("n", "gp", function() vim.diagnostic.jump({ count = -1, float = true }) end,

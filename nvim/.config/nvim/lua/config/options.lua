@@ -14,6 +14,7 @@ vim.o.updatetime = 200
 vim.o.colorcolumn = "120"
 vim.o.spelllang = "en"
 vim.o.signcolumn = "yes"
+vim.o.pumheight = 10
 vim.o.splitright = true
 vim.o.splitbelow = true
 vim.o.undofile = true
