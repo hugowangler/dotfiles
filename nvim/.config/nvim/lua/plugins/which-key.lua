@@ -9,6 +9,7 @@ return {
             { "<leader>g", group = "git" },
             { "<leader>h", group = "git hunk" },
             { "<leader>q", group = "quickfix" },
+            { "<leader>r", group = "run" },
             { "<leader>t", group = "test" },
             { "<leader>o", group = "opencode" },
             { "<leader>u", group = "toggle" },
