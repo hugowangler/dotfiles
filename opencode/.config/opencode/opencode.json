@@ -35,6 +35,10 @@
     "linear": {
       "type": "remote",
       "url": "https://mcp.linear.app/mcp"
+    },
+    "tickup-basedoc": {
+      "type": "remote",
+      "url": "https://f180-lab-dgx.lab.tickup.net:9090/sse"
     }
   },
   "lsp": {

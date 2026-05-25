@@ -13,6 +13,9 @@ return {
             { "<leader>t", group = "test" },
             { "<leader>o", group = "opencode" },
             { "<leader>u", group = "toggle" },
+            { "<leader>ua", desc = "Toggle ty call argument hints" },
+            { "<leader>uh", desc = "Toggle inlay hints" },
+            { "<leader>uv", desc = "Toggle ty variable type hints" },
         })
     end,
 }

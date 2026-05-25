@@ -35,6 +35,31 @@ return {
             "hrsh7th/cmp-nvim-lsp",
         },
         config = function()
+            local ty_inlay_hints = {
+                variableTypes = false,
+                callArgumentNames = true,
+            }
+
+            local function set_ty_inlay_hint(bufnr, name, enabled)
+                ty_inlay_hints[name] = enabled
+
+                for _, client in ipairs(vim.lsp.get_clients({ bufnr = bufnr, name = "ty" })) do
+                    client.config.settings = vim.tbl_deep_extend("force", client.config.settings or {}, {
+                        ty = {
+                            inlayHints = ty_inlay_hints,
+                        },
+                    })
+                    client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+                end
+
+                if vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }) then
+                    vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
+                    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+                end
+
+                vim.notify("ty " .. name .. " hints: " .. (enabled and "ON" or "OFF"))
+            end
+
             -- Shared config for all servers
             vim.lsp.config("*", {
                 capabilities = require("cmp_nvim_lsp").default_capabilities(),
@@ -45,6 +70,7 @@ return {
                 settings = {
                     ty = {
                         diagnosticMode = "off",
+                        inlayHints = ty_inlay_hints,
                     },
                 },
             })
@@ -118,11 +144,6 @@ return {
                         client.server_capabilities.completionProvider = nil
                     end
 
-                    -- Enable inlay hints when supported
-                    if client:supports_method("textDocument/inlayHint") then
-                        vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
-                    end
-
                     local map = function(mode, lhs, rhs, desc)
                         vim.keymap.set(mode, lhs, rhs, { buffer = args.buf, desc = "LSP: " .. desc })
                     end
@@ -157,6 +178,14 @@ return {
                             { bufnr = args.buf }
                         )
                     end, "Toggle inlay hints")
+                    if client.name == "ty" then
+                        map("n", "<leader>uv", function()
+                            set_ty_inlay_hint(args.buf, "variableTypes", not ty_inlay_hints.variableTypes)
+                        end, "Toggle ty variable type hints")
+                        map("n", "<leader>ua", function()
+                            set_ty_inlay_hint(args.buf, "callArgumentNames", not ty_inlay_hints.callArgumentNames)
+                        end, "Toggle ty call argument hints")
+                    end
                     map("n", "<leader>ud", function()
                         vim.diagnostic.enable(
                             not vim.diagnostic.is_enabled({ bufnr = args.buf }),
