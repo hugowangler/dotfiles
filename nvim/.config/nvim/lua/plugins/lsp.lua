@@ -24,6 +24,7 @@ return {
                 "gopls",
                 "lua_ls",
                 "bashls",
+                "ts_ls",
             },
             automatic_enable = true,
         },

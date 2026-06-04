@@ -129,5 +129,3 @@ eval "$(starship init zsh)"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-# Kubernetes config (added by kubeconfig installer)
-export KUBECONFIG=/Users/hugo/.kube/config
