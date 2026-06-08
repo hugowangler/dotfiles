@@ -9,9 +9,22 @@ return {
             ignore = false,
         },
         view = {
-            width = 50,
+            width = {
+                min = 50,
+                max = 90,
+                padding = 1,
+            },
             number = true,
             relativenumber = true,
+        },
+        renderer = {
+            add_trailing = true,
+            full_name = true,
+            group_empty = true,
+            indent_markers = {
+                enable = true,
+                inline_arrows = false,
+            },
         },
         filters = {
             dotfiles = false,
