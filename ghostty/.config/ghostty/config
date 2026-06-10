@@ -1,0 +1,21 @@
+# Theme (matches tokyonight-night used in tmux/nvim)
+theme = TokyoNight Night
+
+# Font
+font-family = "FiraCode Nerd Font"
+font-size = 14
+font-thicken = true
+font-feature = -calt
+
+# Window
+macos-titlebar-style = hidden
+
+# Mouse
+mouse-scroll-multiplier = discrete:1
+
+# Cmd+h/j/k/l -> Esc+h/j/k/l so tmux's M-hjkl pane-split binds work.
+# Keeps .tmux.conf using terminal-agnostic M-hjkl pane split binds.
+keybind = cmd+h=esc:h
+keybind = cmd+j=esc:j
+keybind = cmd+k=esc:k
+keybind = cmd+l=esc:l

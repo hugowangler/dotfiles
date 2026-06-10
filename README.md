@@ -1,3 +1,2 @@
 # dotfiles
-Main setup runs this on macOS with iTerm2 and zsh+tmux
-
+Main setup runs this on macOS with Ghostty and zsh+tmux
