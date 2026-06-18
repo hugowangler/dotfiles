@@ -38,7 +38,7 @@
     },
     "tickup-basedoc": {
       "type": "remote",
-      "url": "https://f180-lab-dgx.lab.tickup.net:9090/sse"
+      "url": "https://tickup-basedoc.tickup-dev.com:9090/sse"
     },
     "context7": {
       "type": "remote",
