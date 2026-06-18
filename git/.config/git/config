@@ -1,8 +1,9 @@
 [alias]
-	sla = log --oneline --decorate --graph --all -20
+	sla = log --oneline --decorate --graph --all -200
 	lb = !git branch --sort='-committerdate' --format='%(color:green)%(committerdate:relative)%(color:reset) %(refname:short)' | fzf --ansi --layout=reverse --border --info=hidden --height=10 | sed 's/.*ago[ ]*//g' | xargs git checkout
 [core]
 	editor = nvim
+    pager = delta
 [commit]
 	gpgsign = true
 [user]
@@ -13,5 +14,15 @@
 	insteadOf = https://github.com/
 [pull]
 	ff = only
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    navigate = true
+    dark = true
+    line-numbers = true
+    side-by-side = false
+[merge]
+    conflictStyle = zdiff3
 [diff]
-	external = difft
+    colorMoved = zebra
+    algorithm = histogram
