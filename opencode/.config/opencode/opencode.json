@@ -38,19 +38,19 @@
     },
     "tickup-basedoc": {
       "type": "remote",
-      "url": "https://tickup-basedoc.tickup-dev.com:9090/sse"
+      "url": "https://basedoc-mcp.tickup.net/sse"
     },
     "context7": {
       "type": "remote",
       "url": "https://mcp.context7.com/mcp",
       "enabled": true,
       "headers": {
-        "CONTEXT7_API_KEY": "ctx7sk-0fd86c83-6cb2-4155-afd5-954d48041579"
+        "CONTEXT7_API_KEY": "{env:CONTEXT7_API_KEY}"
       }
     },
-      "infra-basedoc": {
-        "type": "remote",
-        "url": "http://f180-lab-dgx.lab.tickup.net:8091/mcp/sse"
+    "infra-basedoc": {
+      "type": "remote",
+      "url": "https://infradoc-mcp.tickup.net/mcp"
     }
   },
   "lsp": {

@@ -118,6 +118,7 @@ function list-oci-helm-chart() {
 
 # Secrets from macOS Keychain
 export GITHUB_TOKEN_MCP=$(security find-generic-password -a "$USER" -s "GITHUB_TOKEN_MCP" -w)
+export CONTEXT7_API_KEY="$(security find-generic-password -a "$USER" -s context7-api-key -w 2>/dev/null)"
 
 # Prompt
 eval "$(starship init zsh)"
@@ -128,4 +129,3 @@ eval "$(starship init zsh)"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
-
