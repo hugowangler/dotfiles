@@ -18,6 +18,8 @@
     diffFilter = delta --color-only
 [delta]
     navigate = true
+    paging = always
+    pager = less -R
     dark = true
     line-numbers = true
     side-by-side = false
