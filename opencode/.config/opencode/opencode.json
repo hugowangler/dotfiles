@@ -1,7 +1,15 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "permission": {
-    "lsp": "allow"
+    "lsp": "allow",
+    "external_directory": {
+        "~/go/pkg/mod/**": "allow",
+        "~/go/pkg/sumdb/**": "allow"
+    },
+    "edit": {
+      "~/go/pkg/mod/**": "deny",
+      "~/go/pkg/sumdb/**": "deny"
+    }
   },
   "mcp": {
     "tickup": {
