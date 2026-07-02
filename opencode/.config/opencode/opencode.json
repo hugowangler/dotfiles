@@ -58,7 +58,7 @@
     },
     "infra-basedoc": {
       "type": "remote",
-      "url": "https://infradoc-mcp.tickup.net/mcp"
+      "url": "https://infradoc.tickup.net/mcp",
     }
   },
   "lsp": {
