@@ -5,8 +5,14 @@ changes are config-only and deploy to `$HOME` with GNU Stow.
 
 ## Boundaries
 
-- Work in `/Users/hugo/dotfiles` only. Do not inspect or edit deployed symlink
-  targets under `$HOME/.config`, `$HOME/.local/share`, etc.
+- Worktree edits are limited to `/Users/hugo/dotfiles` unless explicitly
+  requested otherwise.
+- Read-only inspection outside the repo is allowed when the user explicitly
+  asks to debug deployed config or runtime state, including files under
+  `$HOME/.config`, `$HOME/.local/share`, and similar locations.
+- Do not edit deployed symlink targets under `$HOME/.config`,
+  `$HOME/.local/share`, etc.; make persistent config changes in this dotfiles
+  repo instead.
 - Top-level directories are Stow packages whose internal paths mirror `$HOME`.
 - `.ignore` excludes `zsh/oh-my-zsh/` and `zsh/plugins/` from `rg`/`fd`; those
   paths are submodules, not local source to edit.
