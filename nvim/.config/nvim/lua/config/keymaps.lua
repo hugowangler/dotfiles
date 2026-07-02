@@ -80,4 +80,15 @@ map("n", "<C-w>J", "<C-w>5+", { desc = "Resize down" })
 map("n", "<C-w>K", "<C-w>5-", { desc = "Resize up" })
 
 -- tmux sessionizer
-map("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", { desc = "tmux sessionizer" })
+map("n", "<C-f>", function()
+    vim.system({
+        "tmux",
+        "display-popup",
+        "-E",
+        "-w",
+        "80%",
+        "-h",
+        "80%",
+        vim.env.HOME .. "/.local/bin/tmux-sessionizer",
+    }, { detach = true })
+end, { desc = "tmux sessionizer" })
