@@ -24,6 +24,7 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 export PATH="$HOME/.local/bin:$GOBIN:$PATH"
 
 # Tool integrations
+eval "$(direnv hook zsh)"
 eval "$(zoxide init zsh)"
 source <(fzf --zsh)
 

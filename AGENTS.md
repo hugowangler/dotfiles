@@ -28,6 +28,7 @@ changes are config-only and deploy to `$HOME` with GNU Stow.
 - `git/` -> `$HOME/.config/git/config`.
 - `idea/` -> `$HOME/.ideavimrc`; kept as IdeaVim reference config.
 - `nvim/` -> `$HOME/.config/nvim/`; Lua config plus committed `lazy-lock.json`.
+- `nix/` -> `$HOME/.config/nix/nix.conf`.
 - `opencode/` -> `$HOME/.config/opencode/opencode.json`.
 - `tmux/` -> `$HOME/.tmux.conf`.
 - `zsh/` -> `$HOME/.zshrc`, `$HOME/.config/starship.toml`, and zsh submodules.
@@ -36,7 +37,7 @@ changes are config-only and deploy to `$HOME` with GNU Stow.
 
 ```sh
 stow -d "$HOME/dotfiles" -t "$HOME" zsh
-stow -d "$HOME/dotfiles" -t "$HOME" ghostty git idea nvim opencode tmux zsh
+stow -d "$HOME/dotfiles" -t "$HOME" ghostty git idea nvim nix opencode tmux zsh
 stow -d "$HOME/dotfiles" -t "$HOME" -n -v zsh
 ```
 
