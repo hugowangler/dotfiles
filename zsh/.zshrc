@@ -21,10 +21,10 @@ export NVM_DIR="$HOME/.nvm"
 
 # PATH
 eval "$(/opt/homebrew/bin/brew shellenv)"
+export PATH="$(brew --prefix rustup)/bin:$PATH"
 export PATH="$HOME/.local/bin:$GOBIN:$PATH"
 
 # Tool integrations
-eval "$(direnv hook zsh)"
 eval "$(zoxide init zsh)"
 source <(fzf --zsh)
 

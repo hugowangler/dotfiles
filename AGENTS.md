@@ -69,8 +69,8 @@ nvim +"Lazy sync" +qall
   `desc = "..."`.
 - LSP uses native `vim.lsp.config()` / `vim.lsp.enable()`, not deprecated
   `require("lspconfig").SERVER.setup()`.
-- Mason ensures `gopls`, `lua_ls`, `bashls`, and `ts_ls`. Python servers are
-  external `ty` and `ruff`, enabled directly.
+- Mason ensures `gopls`, `lua_ls`, `bashls`, and `ts_ls`. External servers
+  `ty`, `ruff`, and rustup's `rust_analyzer` are enabled directly.
 - Format-on-save is globally controlled by `vim.g.autoformat` and toggled with
   `<leader>uf`.
 - Which-key groups include `<leader>f`, `<leader>g`, `<leader>h`, `<leader>q`,

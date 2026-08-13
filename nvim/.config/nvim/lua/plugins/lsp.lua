@@ -102,6 +102,10 @@ return {
             -- Bash
             vim.lsp.config("bashls", {})
 
+            -- Rust
+            vim.lsp.config("rust_analyzer", {})
+            vim.lsp.enable("rust_analyzer")
+
             -- Diagnostics
             vim.diagnostic.config({
                 severity_sort = true,
