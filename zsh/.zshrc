@@ -59,6 +59,7 @@ alias dc="docker compose"
 alias deit="docker exec -it"
 
 # Kubernetes
+export KUBECONFIG="secrets/kubeconfig.yaml"
 command -v kubecolor >/dev/null 2>&1 && alias kubectl="kubecolor"
 command -v kubecolor >/dev/null 2>&1 && alias k="kubecolor"
 alias kssd=kubectl-show-secret-data
