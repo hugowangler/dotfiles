@@ -5,6 +5,11 @@ return {
     config = function()
         require("tokyonight").setup({
             dim_inactive = true,
+            on_colors = function(c)
+                c.git.add = c.green
+                c.git.change = c.yellow
+                c.git.delete = c.red
+            end,
             on_highlights = function(hl, c)
                 hl.WinSeparator = { fg = c.fg_gutter }
             end,

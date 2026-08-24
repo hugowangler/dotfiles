@@ -5,6 +5,15 @@ return {
         config = function()
             require("gitsigns").setup({
                 current_line_blame = true,
+                signs = {
+                    add = { text = "▌" },
+                    change = { text = "▌" },
+                    untracked = { text = "▌" },
+                },
+                signs_staged = {
+                    add = { text = "▌" },
+                    change = { text = "▌" },
+                },
                 on_attach = function(bufnr)
                     local gs = require("gitsigns")
                     local map = function(mode, lhs, rhs, desc)
