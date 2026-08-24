@@ -4,11 +4,13 @@
     "lsp": "allow",
     "external_directory": {
         "~/go/pkg/mod/**": "allow",
-        "~/go/pkg/sumdb/**": "allow"
+        "~/go/pkg/sumdb/**": "allow",
+        "~/.cargo/registry/src/**": "allow"
     },
     "edit": {
       "~/go/pkg/mod/**": "deny",
-      "~/go/pkg/sumdb/**": "deny"
+      "~/go/pkg/sumdb/**": "deny",  
+      "~/.cargo/registry/src/**": "deny"
     }
   },
   "mcp": {
