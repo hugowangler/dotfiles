@@ -10,6 +10,7 @@ export GPG_TTY=$(tty)
 export LC_ALL=en_US.UTF-8
 export LANG="$LC_ALL"
 export APPLE_SSH_ADD_BEHAVIOR=macos
+export HOMEBREW_NO_ENV_HINTS=1
 export MANPAGER="less -R --use-color -Dd+r -Du+b"
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
 
