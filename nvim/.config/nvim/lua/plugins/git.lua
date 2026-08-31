@@ -26,6 +26,8 @@ return {
                     map("n", "<leader>hr", gs.reset_hunk, "Reset hunk")
                     map("n", "]h", function() gs.nav_hunk("next") end, "Next hunk")
                     map("n", "[h", function() gs.nav_hunk("prev") end, "Previous hunk")
+                    map("n", "gh", function() gs.nav_hunk("next") end, "Next hunk")
+                    map("n", "gH", function() gs.nav_hunk("prev") end, "Previous hunk")
                 end,
             })
         end,
