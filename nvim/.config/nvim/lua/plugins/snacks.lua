@@ -6,6 +6,7 @@ return {
         { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
     },
     opts = {
+        image = {},
         indent = {
             animate = {
                 enabled = false,
