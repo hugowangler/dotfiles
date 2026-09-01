@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+window_id="$1"
+active_pane="$2"
+sidebar_pane=$(tmux list-panes -t "$window_id" -f '#{==:#{@pane_role},sidebar}' -F '#{pane_id}')
+
+if [[ -z "$sidebar_pane" ]]; then
+  tmux select-layout -E -t "$active_pane"
+  exit
+fi
+
+target_pane="$active_pane"
+if [[ "$target_pane" == "$sidebar_pane" ]]; then
+  target_pane=$(tmux list-panes -t "$window_id" -f '#{!=:#{@pane_role},sidebar}' -F '#{pane_id}' | head -n 1)
+fi
+
+sidebar_width=$(tmux show-options -gqv @sidebar_width)
+[[ -n "$sidebar_width" ]] || sidebar_width="15%"
+
+tmux break-pane -d -s "$sidebar_pane"
+tmux select-layout -E -t "$target_pane"
+tmux join-pane -d -hfb -l "$sidebar_width" -s "$sidebar_pane" -t "$target_pane"
