@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# Tracks the current and previous herdr workspace so `toggle` can switch back.
+# Usage: last-workspace record|toggle
+
+herdr="${HERDR_BIN_PATH:-herdr}"
+state="${HERDR_PLUGIN_STATE_DIR:?}/workspaces"
+
+function focused_workspace() {
+  "$herdr" workspace list | jq -r 'first(.result.workspaces[] | select(.focused) | .workspace_id) // empty'
+}
+
+current=""
+previous=""
+[[ -f "$state" ]] && { read -r current; read -r previous; } <"$state"
+
+case "$1" in
+  record)
+    focused=$(focused_workspace)
+    if [[ -n "$focused" && "$focused" != "$current" ]]; then
+      printf '%s\n%s\n' "$focused" "$current" >"$state"
+    fi
+    ;;
+  toggle)
+    [[ -n "$previous" ]] || exit 0
+    "$herdr" workspace focus "$previous" >/dev/null
+    ;;
+  *)
+    exit 1
+    ;;
+esac

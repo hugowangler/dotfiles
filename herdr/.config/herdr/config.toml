@@ -1,0 +1,105 @@
+# herdr config, tuned to feel like tmux/.tmux.conf.
+# Full reference: `herdr --default-config`. Validate with `herdr config check`.
+onboarding = false
+
+[theme]
+name = "tokyo-night"
+auto_switch = false
+
+[keys]
+prefix = "ctrl+a"
+
+# Pressing the prefix twice sends a literal C-a; herdr has no last-workspace
+# action for tmux's `switch-client -l`, so back-and-forth is pane-level.
+last_pane = "prefix+backslash"
+
+# Cmd+h/j/k/l splits (Ghostty maps these to Esc+h/j/k/l, i.e. alt+h/j/k/l).
+# Right/down are native; left/up go through herdr-split below.
+split_vertical = ["prefix+v", "alt+l"]
+split_horizontal = ["prefix+minus", "alt+j"]
+
+# Resize (tmux: prefix H/J/K/L)
+resize_pane_left = "prefix+shift+h"
+resize_pane_down = "prefix+shift+j"
+resize_pane_up = "prefix+shift+k"
+resize_pane_right = "prefix+shift+l"
+resize_mode = "prefix+m"
+
+close_pane = "prefix+q"
+detach = "prefix+d"
+workspace_picker = "prefix+w"
+reload_config = "prefix+r"
+
+# Workspace picker (prefix+w): j/k move between workspaces, so pane up/down
+# moves to ctrl+j/k there (h/l still move between panes).
+navigate_workspace_up = ["k", "up"]
+navigate_workspace_down = ["j", "down"]
+navigate_pane_up = "ctrl+k"
+navigate_pane_down = "ctrl+j"
+
+# tmux `C-a C-a` (switch-client -l). herdr reserves prefix twice for a literal
+# C-a, so this is prefix then a. Plugin lives in herdr/plugins/last-workspace.
+[[keys.command]]
+key = "prefix+a"
+type = "plugin_action"
+command = "hugo.last-workspace.toggle"
+description = "last workspace"
+
+# tmux-sessionizer equivalent: fzf over repos, focus or create a workspace
+[[keys.command]]
+key = "prefix+f"
+type = "popup"
+command = "$HOME/.local/bin/herdr-sessionizer"
+description = "sessionizer"
+width = "80%"
+height = "80%"
+
+[[keys.command]]
+key = "alt+h"
+type = "shell"
+command = "$HOME/.local/bin/herdr-split left"
+description = "split left"
+
+[[keys.command]]
+key = "alt+k"
+type = "shell"
+command = "$HOME/.local/bin/herdr-split up"
+description = "split up"
+
+# Vim-aware C-h/j/k/l, like vim-tmux-navigator. Nvim side: lua/config/herdr.lua.
+[[keys.command]]
+key = "ctrl+h"
+type = "shell"
+command = "$HOME/.local/bin/herdr-navigate left"
+description = "focus pane left (vim-aware)"
+
+[[keys.command]]
+key = "ctrl+j"
+type = "shell"
+command = "$HOME/.local/bin/herdr-navigate down"
+description = "focus pane down (vim-aware)"
+
+[[keys.command]]
+key = "ctrl+k"
+type = "shell"
+command = "$HOME/.local/bin/herdr-navigate up"
+description = "focus pane up (vim-aware)"
+
+[[keys.command]]
+key = "ctrl+l"
+type = "shell"
+command = "$HOME/.local/bin/herdr-navigate right"
+description = "focus pane right (vim-aware)"
+
+[ui]
+status_indicators = "symbols"
+tab_bar_position = "top"
+# tmux-style internal splitters
+pane_outer_borders = false
+pane_gaps = false
+
+[ui.sound]
+enabled = true
+
+[ui.toast]
+delivery = "herdr"

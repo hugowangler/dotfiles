@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+# tmux-sessionizer for herdr: fzf over repo dirs, then focus the matching
+# workspace or create it there. Reads the search paths from tmux-sessionizer's
+# config (~/.config/tmux-sessionizer/tmux-sessionizer.conf).
+# Usage: herdr-sessionizer [PATH]
+
+CONFIG_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/tmux-sessionizer/tmux-sessionizer.conf"
+if [[ -f "$CONFIG_FILE" ]]; then
+  source "$CONFIG_FILE"
+fi
+
+# Only search the configured paths. Unlike tmux-sessionizer, there is no
+# fallback to ~/ and friends, so TS_EXTRA_SEARCH_PATHS acts as a whitelist.
+TS_SEARCH_PATHS=("${TS_SEARCH_PATHS[@]}" "${TS_EXTRA_SEARCH_PATHS[@]}")
+
+workspaces=$(herdr workspace list)
+
+function find_dirs() {
+  # Open workspaces first, excluding the focused one
+  jq -r '.result.workspaces[] | select(.focused | not) | "[HERDR] \(.label)"' <<<"$workspaces"
+
+  # Entries may end with :depth, like tmux-sessionizer; :0 means the dir itself
+  local entry path depth
+  for entry in "${TS_SEARCH_PATHS[@]}"; do
+    if [[ "$entry" =~ ^([^:]+):([0-9]+)$ ]]; then
+      path="${BASH_REMATCH[1]}"
+      depth="${BASH_REMATCH[2]}"
+    else
+      path="$entry"
+      depth="${TS_MAX_DEPTH:-1}"
+    fi
+    [[ -d "$path" ]] || continue
+    if [[ "$depth" == 0 ]]; then
+      echo "${path%/}"
+    else
+      find "$path" -mindepth 1 -maxdepth "$depth" -path '*/.git' -prune -o -type d -print
+    fi
+  done
+}
+
+if [[ -n "$1" ]]; then
+  selected="$1"
+else
+  selected=$(find_dirs | fzf)
+fi
+[[ -n "$selected" ]] || exit 0
+
+if [[ "$selected" =~ ^\[HERDR\]\ (.+)$ ]]; then
+  name="${BASH_REMATCH[1]}"
+  selected=""
+else
+  selected="${selected%/}"
+  name=$(basename "$selected" | tr . _)
+fi
+
+workspace_id=$(jq -r --arg name "$name" \
+  'first(.result.workspaces[] | select(.label == $name) | .workspace_id) // empty' <<<"$workspaces")
+
+if [[ -n "$workspace_id" ]]; then
+  herdr workspace focus "$workspace_id" >/dev/null
+elif [[ -n "$selected" ]]; then
+  herdr workspace create --cwd "$selected" --label "$name" --focus >/dev/null
+fi

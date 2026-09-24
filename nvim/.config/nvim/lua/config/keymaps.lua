@@ -79,8 +79,33 @@ map("n", "<C-w>L", "<C-w>5>", { desc = "Resize right" })
 map("n", "<C-w>J", "<C-w>5+", { desc = "Resize down" })
 map("n", "<C-w>K", "<C-w>5-", { desc = "Resize up" })
 
--- tmux sessionizer
+-- Sessionizer: herdr popup via prefix+f binding, or tmux popup
 map("n", "<C-f>", function()
+    if vim.env.HERDR_PANE_ID and not vim.env.TMUX then
+        -- herdr has no CLI popup, so run it in a floating terminal instead
+        local width = math.floor(vim.o.columns * 0.8)
+        local height = math.floor(vim.o.lines * 0.8)
+        local buf = vim.api.nvim_create_buf(false, true)
+        vim.api.nvim_open_win(buf, true, {
+            relative = "editor",
+            width = width,
+            height = height,
+            col = math.floor((vim.o.columns - width) / 2),
+            row = math.floor((vim.o.lines - height) / 2),
+            border = "rounded",
+        })
+        vim.fn.jobstart({ vim.env.HOME .. "/.local/bin/herdr-sessionizer" }, {
+            term = true,
+            on_exit = function()
+                vim.api.nvim_buf_delete(buf, { force = true })
+            end,
+        })
+        vim.cmd.startinsert()
+        return
+    end
+    if not vim.env.TMUX then
+        return
+    end
     vim.system({
         "tmux",
         "display-popup",
@@ -91,4 +116,4 @@ map("n", "<C-f>", function()
         "80%",
         vim.env.HOME .. "/.local/bin/tmux-sessionizer",
     }, { detach = true })
-end, { desc = "tmux sessionizer" })
+end, { desc = "Sessionizer" })

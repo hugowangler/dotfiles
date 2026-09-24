@@ -23,3 +23,8 @@ keybind = cmd+h=esc:h
 keybind = cmd+j=esc:j
 keybind = cmd+k=esc:k
 keybind = cmd+l=esc:l
+
+# C-a C-a -> C-a a. herdr always passes a doubled prefix through as a literal
+# C-a, so its last-workspace toggle lives on prefix+a (tmux binds a to match).
+# Any other key after C-a is sent through unchanged.
+keybind = ctrl+a>ctrl+a=text:\x01a

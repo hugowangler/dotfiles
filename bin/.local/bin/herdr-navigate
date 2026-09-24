@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Vim-aware pane navigation for herdr, mirroring vim-tmux-navigator in tmux.
+# Usage: herdr-navigate left|down|up|right
+
+direction="$1"
+case "$direction" in
+  left) key="ctrl+h" ;;
+  down) key="ctrl+j" ;;
+  up) key="ctrl+k" ;;
+  right) key="ctrl+l" ;;
+  *) exit 1 ;;
+esac
+
+# Without HERDR_PANE_ID, `herdr pane current` resolves to the UI-focused pane.
+pane_id=$(env -u HERDR_PANE_ID herdr pane current | jq -r '.result.pane.pane_id')
+[[ -n "$pane_id" && "$pane_id" != "null" ]] || exit 1
+
+vim_pattern='^g?\.?(view|l?n?vim?x?|fzf)(diff)?(-wrapped)?$'
+if herdr pane process-info --pane "$pane_id" \
+  | jq -r '.result.process_info.foreground_processes[].name' \
+  | grep -iqE "$vim_pattern"; then
+  herdr pane send-keys "$pane_id" "$key" >/dev/null
+else
+  herdr pane focus --pane "$pane_id" --direction "$direction" >/dev/null
+fi

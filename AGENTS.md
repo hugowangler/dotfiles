@@ -23,9 +23,12 @@ changes are config-only and deploy to `$HOME` with GNU Stow.
 
 ## Packages
 
-- `bin/` -> `$HOME/.local/bin/`; contains `tmux-sessionizer`.
+- `bin/` -> `$HOME/.local/bin/`; contains `tmux-sessionizer`, `tmux-equalize-panes`,
+  `herdr-navigate`, `herdr-split`, and `herdr-sessionizer`.
 - `ghostty/` -> `$HOME/.config/ghostty/config`.
 - `git/` -> `$HOME/.config/git/config`.
+- `herdr/` -> `$HOME/.config/herdr/config.toml`; only the file is stowed because
+  herdr keeps sockets, logs, and `session.json` in that directory.
 - `idea/` -> `$HOME/.ideavimrc`; kept as IdeaVim reference config.
 - `nvim/` -> `$HOME/.config/nvim/`; Lua config plus committed `lazy-lock.json`.
 - `nix/` -> `$HOME/.config/nix/nix.conf`.
@@ -37,7 +40,7 @@ changes are config-only and deploy to `$HOME` with GNU Stow.
 
 ```sh
 stow -d "$HOME/dotfiles" -t "$HOME" zsh
-stow -d "$HOME/dotfiles" -t "$HOME" ghostty git idea nvim nix opencode tmux zsh
+stow -d "$HOME/dotfiles" -t "$HOME" bin ghostty git herdr idea nvim nix opencode tmux zsh
 stow -d "$HOME/dotfiles" -t "$HOME" -n -v zsh
 ```
 
@@ -94,6 +97,26 @@ nvim +"Lazy sync" +qall
 - `C-h/j/k/l` is shared with vim-tmux-navigator. `M-h/j/k/l` splits panes and
   preserves the current pane path.
 - TPM plugins are `tmux-yank`, `tmux-resurrect`, and `tmux-continuum`.
+
+## Herdr
+
+- Config mirrors tmux: prefix `C-a`, `alt+h/j/k/l` splits, `prefix+H/J/K/L`
+  resize, `prefix q` closes a pane, `prefix r` reloads, `prefix w` opens the
+  workspace picker.
+- `prefix f` (and nvim `<C-f>` inside herdr) runs `herdr-sessionizer` in a
+  popup: fzf over the tmux-sessionizer search paths, then focus the workspace
+  labelled after the repo or create it there.
+- `C-h/j/k/l` run `herdr-navigate`, which sends the key through when the
+  focused pane runs vim/nvim/fzf and otherwise focuses the neighbor pane.
+  `nvim/.config/nvim/lua/config/herdr.lua` hands focus back to herdr at a
+  split edge; it is active only when `$HERDR_PANE_ID` is set and `$TMUX` is not.
+- herdr only splits right/down; `herdr-split` does left/up by splitting and
+  swapping.
+- `prefix a` toggles to the previous workspace (tmux `C-a C-a`; herdr reserves
+  prefix twice for a literal `C-a`). This is the local plugin in
+  `herdr/plugins/last-workspace/`, which Stow ignores. Register it once per
+  machine with `herdr plugin link "$HOME/dotfiles/herdr/plugins/last-workspace"`.
+- Validate with `herdr config check`; reload with `herdr server reload-config`.
 
 ## Git Config
 

@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Split the focused herdr pane in any direction, like tmux split-window -b.
+# herdr only splits right/down, so left/up split then swap.
+# Usage: herdr-split left|down|up|right
+
+direction="$1"
+case "$direction" in
+  left) split="right" ;;
+  up) split="down" ;;
+  right | down) split="$direction" ;;
+  *) exit 1 ;;
+esac
+
+pane=$(env -u HERDR_PANE_ID herdr pane current)
+pane_id=$(jq -r '.result.pane.pane_id' <<<"$pane")
+cwd=$(jq -r '.result.pane.foreground_cwd // .result.pane.cwd' <<<"$pane")
+[[ -n "$pane_id" && "$pane_id" != "null" ]] || exit 1
+
+new_pane=$(herdr pane split --pane "$pane_id" --direction "$split" --cwd "$cwd" --focus \
+  | jq -r '.result.pane.pane_id')
+if [[ "$split" != "$direction" && -n "$new_pane" && "$new_pane" != "null" ]]; then
+  herdr pane swap --pane "$new_pane" --direction "$direction" >/dev/null
+fi

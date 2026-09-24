@@ -1,0 +1,16 @@
+id = "hugo.last-workspace"
+name = "Last Workspace"
+version = "0.1.0"
+min_herdr_version = "0.9.0"
+description = "Toggle to the previously focused workspace, like tmux switch-client -l"
+platforms = ["macos", "linux"]
+
+[[events]]
+on = "workspace.focused"
+command = ["./last-workspace", "record"]
+
+[[actions]]
+id = "toggle"
+title = "Last workspace"
+contexts = ["workspace"]
+command = ["./last-workspace", "toggle"]
