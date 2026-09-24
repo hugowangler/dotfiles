@@ -24,8 +24,15 @@
       "oauth": {}
     },
     "ask_polars": {
-      "type": "remote",
-      "url": "https://mcp.pola.rs/mcp"
+      "type": "local",
+      "command": [
+        "uvx",
+        "--with",
+        "mcp<2",
+        "--with",
+        "polars",
+        "polars-mcp"
+      ]
     },
     "github": {
       "type": "local",
@@ -61,6 +68,10 @@
     "infra-basedoc": {
       "type": "remote",
       "url": "https://infradoc.tickup.net/mcp",
+    },
+    "tickup-docs-wiki": {
+        "type": "remote",
+        "url": "https://docs.tickup.io/mcp"
     }
   },
   "lsp": {
