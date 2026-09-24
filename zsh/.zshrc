@@ -13,6 +13,7 @@ export APPLE_SSH_ADD_BEHAVIOR=macos
 export HOMEBREW_NO_ENV_HINTS=1
 export MANPAGER="less -R --use-color -Dd+r -Du+b"
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
+export OPENCODE_DISABLE_CLAUDE_CODE_SKILLS=1
 
 export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
