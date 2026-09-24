@@ -25,7 +25,7 @@ resize_pane_up = "prefix+shift+k"
 resize_pane_right = "prefix+shift+l"
 resize_mode = "prefix+m"
 
-close_pane = "prefix+q"
+close_pane = ["prefix+x", "prefix+q"]
 detach = "prefix+d"
 workspace_picker = "prefix+w"
 reload_config = "prefix+r"
@@ -92,14 +92,13 @@ command = "$HOME/.local/bin/herdr-navigate right"
 description = "focus pane right (vim-aware)"
 
 [ui]
-status_indicators = "symbols"
+status_indicators = "dots"
 tab_bar_position = "top"
-# tmux-style internal splitters
-pane_outer_borders = false
-pane_gaps = false
+# Create tabs immediately like tmux; rename later with prefix+shift+t
+prompt_new_tab_name = false
 
 [ui.sound]
 enabled = true
 
 [ui.toast]
-delivery = "herdr"
+delivery = "terminal"
