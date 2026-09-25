@@ -101,4 +101,10 @@ prompt_new_tab_name = false
 enabled = true
 
 [ui.toast]
-delivery = "terminal"
+delivery = "herdr"
+
+[ui.toast.herdr]
+position = "bottom-left"
+
+[ui.toast.clipboard]
+enabled = false
