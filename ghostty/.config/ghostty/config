@@ -1,5 +1,7 @@
 # Theme (matches tokyonight-night used in tmux/nvim)
 theme = TokyoNight Night
+# Default-fg bold text (e.g. Claude Code **bold** and headings) in TokyoNight orange.
+bold-color = #ff9e64
 
 # Font
 font-family = "FiraCode Nerd Font"

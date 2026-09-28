@@ -25,6 +25,8 @@ changes are config-only and deploy to `$HOME` with GNU Stow.
 
 - `bin/` -> `$HOME/.local/bin/`; contains `tmux-sessionizer`, `tmux-equalize-panes`,
   `herdr-navigate`, `herdr-split`, `herdr-sessionizer`, and `herdr-rename-tab`.
+- `claude/` -> `$HOME/.claude/themes/`; Claude Code custom themes only (select
+  with `/theme`). Settings and state in `$HOME/.claude` stay unmanaged.
 - `ghostty/` -> `$HOME/.config/ghostty/config`.
 - `git/` -> `$HOME/.config/git/config`.
 - `herdr/` -> `$HOME/.config/herdr/config.toml`; only the file is stowed because
@@ -40,7 +42,7 @@ changes are config-only and deploy to `$HOME` with GNU Stow.
 
 ```sh
 stow -d "$HOME/dotfiles" -t "$HOME" zsh
-stow -d "$HOME/dotfiles" -t "$HOME" bin ghostty git herdr idea nvim nix opencode tmux zsh
+stow -d "$HOME/dotfiles" -t "$HOME" bin claude ghostty git herdr idea nvim nix opencode tmux zsh
 stow -d "$HOME/dotfiles" -t "$HOME" -n -v zsh
 ```
 
