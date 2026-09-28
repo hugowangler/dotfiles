@@ -5,6 +5,9 @@ plugins=(git kubectl)
 source "$ZSH/oh-my-zsh.sh"
 
 # Environment
+export XDG_CONFIG_HOME="$HOME/.config"
+export EDITOR="nvim"
+export VISUAL="nvim"
 export CLICOLOR=1
 export GPG_TTY=$(tty)
 export LC_ALL=en_US.UTF-8
