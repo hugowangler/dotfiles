@@ -29,6 +29,8 @@ close_pane = ["prefix+x", "prefix+q"]
 detach = "prefix+d"
 workspace_picker = "prefix+w"
 reload_config = "prefix+r"
+# Replaced by the herdr-rename-tab popup below
+rename_tab = ""
 
 # Workspace picker (prefix+w): j/k move between workspaces, so pane up/down
 # moves to ctrl+j/k there (h/l still move between panes).
@@ -44,6 +46,15 @@ key = "prefix+a"
 type = "plugin_action"
 command = "hugo.last-workspace.toggle"
 description = "last workspace"
+
+# Rename with the tab's position prefixed ("2: api") so prefix+1..9 is visible
+[[keys.command]]
+key = "prefix+shift+t"
+type = "popup"
+command = "$HOME/.local/bin/herdr-rename-tab"
+description = "rename tab (indexed)"
+width = 50
+height = 5
 
 # tmux-sessionizer equivalent: fzf over repos, focus or create a workspace
 [[keys.command]]
@@ -95,6 +106,7 @@ description = "focus pane right (vim-aware)"
 status_indicators = "dots"
 tab_bar_position = "top"
 # Create tabs immediately like tmux; rename later with prefix+shift+t
+# (herdr-rename-tab, bound above)
 prompt_new_tab_name = false
 
 [ui.sound]

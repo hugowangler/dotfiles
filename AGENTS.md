@@ -24,7 +24,7 @@ changes are config-only and deploy to `$HOME` with GNU Stow.
 ## Packages
 
 - `bin/` -> `$HOME/.local/bin/`; contains `tmux-sessionizer`, `tmux-equalize-panes`,
-  `herdr-navigate`, `herdr-split`, and `herdr-sessionizer`.
+  `herdr-navigate`, `herdr-split`, `herdr-sessionizer`, and `herdr-rename-tab`.
 - `ghostty/` -> `$HOME/.config/ghostty/config`.
 - `git/` -> `$HOME/.config/git/config`.
 - `herdr/` -> `$HOME/.config/herdr/config.toml`; only the file is stowed because
@@ -110,6 +110,9 @@ nvim +"Lazy sync" +qall
   focused pane runs vim/nvim/fzf and otherwise focuses the neighbor pane.
   `nvim/.config/nvim/lua/config/herdr.lua` hands focus back to herdr at a
   split edge; it is active only when `$HERDR_PANE_ID` is set and `$TMUX` is not.
+- `prefix T` runs `herdr-rename-tab` in a popup: renames the focused tab and
+  relabels every tab in the workspace as `N: name` so `prefix 1..9` targets are
+  visible (herdr has no tab index display).
 - herdr only splits right/down; `herdr-split` does left/up by splitting and
   swapping.
 - `prefix a` toggles to the previous workspace (tmux `C-a C-a`; herdr reserves

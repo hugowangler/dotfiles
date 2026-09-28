@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+# Rename the focused herdr tab and prefix every tab in the workspace with its
+# position ("2: api"), so prefix+1..9 targets are visible in the tab bar.
+# Runs in a popup; empty input cancels. Positions go stale after reordering or
+# closing tabs until the next rename.
+# Usage: herdr-rename-tab [NAME]
+
+function die() {
+  echo "herdr-rename-tab: $*" >&2
+  read -r -n 1 -s -p "press any key"
+  exit 1
+}
+
+tab_id="$HERDR_ACTIVE_TAB_ID"
+if [[ -z "$tab_id" ]]; then
+  tab_id=$(herdr tab list | jq -r 'first(.result.tabs[] | select(.focused) | .tab_id) // empty')
+fi
+[[ -n "$tab_id" ]] || die "no focused tab"
+workspace_id="${tab_id%%:*}"
+
+tabs=$(herdr tab list --workspace "$workspace_id") || die "tab list failed"
+
+# Labels are "N: name", or a bare number for tabs that were never renamed
+function strip_index() {
+  local label="$1"
+  label="${label#"${label%%[!0-9]*}"}"
+  label="${label#:}"
+  echo "${label# }"
+}
+
+if [[ -n "$1" ]]; then
+  name="$*"
+else
+  current=$(jq -r --arg id "$tab_id" '.result.tabs[] | select(.tab_id == $id) | .label' <<<"$tabs")
+  read -r -e -p "Rename tab: " -i "$(strip_index "$current")" name
+fi
+[[ -n "$name" ]] || exit 0
+
+position=0
+while IFS=$'\t' read -r id label; do
+  position=$((position + 1))
+  if [[ "$id" == "$tab_id" ]]; then
+    base="$name"
+  else
+    base=$(strip_index "$label")
+  fi
+  if [[ -n "$base" ]]; then
+    herdr tab rename "$id" "$position: $base" >/dev/null
+  else
+    herdr tab rename "$id" "$position" >/dev/null
+  fi
+done < <(jq -r '.result.tabs[] | [.tab_id, .label] | @tsv' <<<"$tabs")
