@@ -65,6 +65,13 @@ description = "sessionizer"
 width = "80%"
 height = "80%"
 
+# tmux prefix+E (tmux-equalize-panes): even out splits in the current tab
+[[keys.command]]
+key = "prefix+shift+e"
+type = "shell"
+command = "$HOME/.local/bin/herdr-equalize-panes"
+description = "equalize panes"
+
 [[keys.command]]
 key = "alt+h"
 type = "shell"

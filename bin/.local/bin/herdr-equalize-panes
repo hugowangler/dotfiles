@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# Even out the splits in the focused herdr tab, like tmux select-layout -E.
+# Panes chained along the same axis get an equal share of it. herdr has no
+# built-in action, so this walks layout.export and sets each split ratio.
+
+socket="${HERDR_SOCKET_PATH:-$HOME/.config/herdr/herdr.sock}"
+
+function api() {
+  printf '%s\n' "$1" | nc -U -w 2 "$socket"
+}
+
+tab_id=$(env -u HERDR_PANE_ID herdr pane current | jq -r '.result.pane.tab_id')
+[[ -n "$tab_id" && "$tab_id" != "null" ]] || exit 1
+
+layout=$(api "$(jq -cn --arg tab "$tab_id" '{id: "equalize", method: "layout.export", params: {tab_id: $tab}}')")
+
+jq -c --arg tab "$tab_id" '
+  def weight($d):
+    if .type == "split" and .direction == $d
+    then (.first | weight($d)) + (.second | weight($d))
+    else 1 end;
+  def ratios($path):
+    if .type == "split" then
+      .direction as $d
+      | (.first | weight($d)) as $a
+      | (.second | weight($d)) as $b
+      | {path: $path, ratio: ($a / ($a + $b))},
+        (.first | ratios($path + [false])),
+        (.second | ratios($path + [true]))
+    else empty end;
+  .result.layout.root
+  | ratios([])
+  | {id: "equalize", method: "layout.set_split_ratio", params: (. + {tab_id: $tab})}
+' <<<"$layout" | while read -r request; do
+  api "$request" >/dev/null
+done

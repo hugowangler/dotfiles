@@ -24,7 +24,8 @@ changes are config-only and deploy to `$HOME` with GNU Stow.
 ## Packages
 
 - `bin/` -> `$HOME/.local/bin/`; contains `tmux-sessionizer`, `tmux-equalize-panes`,
-  `herdr-navigate`, `herdr-split`, `herdr-sessionizer`, and `herdr-rename-tab`.
+  `herdr-navigate`, `herdr-split`, `herdr-sessionizer`, `herdr-rename-tab`, and
+  `herdr-equalize-panes`.
 - `claude/` -> `$HOME/.claude/themes/`; Claude Code custom themes only (select
   with `/theme`). Settings and state in `$HOME/.claude` stay unmanaged.
 - `ghostty/` -> `$HOME/.config/ghostty/config`.
@@ -117,6 +118,9 @@ nvim +"Lazy sync" +qall
   visible (herdr has no tab index display).
 - herdr only splits right/down; `herdr-split` does left/up by splitting and
   swapping.
+- `prefix E` runs `herdr-equalize-panes` (tmux `select-layout -E`): herdr has
+  no equalize action, so it reads `layout.export` over the socket and sets each
+  split with `layout.set_split_ratio`.
 - `prefix a` toggles to the previous workspace (tmux `C-a C-a`; herdr reserves
   prefix twice for a literal `C-a`). This is the local plugin in
   `herdr/plugins/last-workspace/`, which Stow ignores. Register it once per
