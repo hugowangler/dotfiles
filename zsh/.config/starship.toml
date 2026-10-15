@@ -7,6 +7,7 @@ $directory\
 $git_branch\
 $git_state\
 $git_status\
+$kubernetes\
 $cmd_duration\
 $line_break\
 $python\
@@ -48,3 +49,17 @@ format = "[$virtualenv]($style) "
 style = "bright-black"
 detect_extensions = []
 detect_files = []
+
+[kubernetes]
+disabled = false
+format = "[$symbol$context( \\($namespace\\))]($style) "
+style = "fg:#73daca"
+
+[[kubernetes.contexts]]
+context_pattern = "(gke_.*_)?prod"
+context_alias = "prod"
+style = "bold red"
+
+[[kubernetes.contexts]]
+context_pattern = "gke_.*_(?P<cluster>[\\w-]+)"
+context_alias = "$cluster"

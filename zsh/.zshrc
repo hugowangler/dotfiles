@@ -64,7 +64,34 @@ alias dc="docker compose"
 alias deit="docker exec -it"
 
 # Kubernetes
-export KUBECONFIG="secrets/kubeconfig.yaml"
+# The global kubeconfig has no current context on purpose, so nothing is
+# targeted until you pick one. kctx pins a context to the current shell only;
+# kctx - drops it again.
+function kctx() {
+  if [[ "$1" == "-" ]]; then
+    _kctx_cleanup
+    unset KUBECONFIG
+    echo "kube context: $(command kubectl config current-context 2>/dev/null || echo none)"
+    return
+  fi
+  local ctx="$1"
+  if [[ -z "$ctx" ]]; then
+    ctx="$(KUBECONFIG="$HOME/.kube/config" command kubectl config get-contexts -o name | fzf --prompt="kube context> ")" || return 1
+  fi
+  local shell_config="${TMPDIR:-/tmp}/kubeconfig-$$.yaml"
+  (umask 077 && KUBECONFIG="$HOME/.kube/config" command kubectl config view --minify --flatten --context "$ctx" >"$shell_config") || return 1
+  export KUBECONFIG="$shell_config"
+  echo "kube context: $ctx (this shell only)"
+}
+function _kctx_cleanup() {
+  rm -f "${TMPDIR:-/tmp}/kubeconfig-$$.yaml"
+}
+autoload -Uz add-zsh-hook
+add-zsh-hook zshexit _kctx_cleanup
+function _kctx() {
+  compadd -- - $(KUBECONFIG="$HOME/.kube/config" command kubectl config get-contexts -o name 2>/dev/null)
+}
+compdef _kctx kctx
 command -v kubecolor >/dev/null 2>&1 && alias kubectl="kubecolor"
 command -v kubecolor >/dev/null 2>&1 && alias k="kubecolor"
 alias kssd=kubectl-show-secret-data
