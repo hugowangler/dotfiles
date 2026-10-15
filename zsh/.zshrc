@@ -98,8 +98,12 @@ function _kctx() {
   compadd -- - $(KUBECONFIG="$HOME/.kube/config" command kubectl config get-contexts -o name 2>/dev/null)
 }
 compdef _kctx kctx
-command -v kubecolor >/dev/null 2>&1 && alias kubectl="kubecolor"
-command -v kubecolor >/dev/null 2>&1 && alias k="kubecolor"
+# Colors only matter on a terminal; shells without one (agents, scripts) get
+# plain kubectl.
+if command -v kubecolor >/dev/null 2>&1 && [[ -t 1 ]]; then
+  alias kubectl="kubecolor"
+  alias k="kubecolor"
+fi
 alias kssd=kubectl-show-secret-data
 
 # Editor
