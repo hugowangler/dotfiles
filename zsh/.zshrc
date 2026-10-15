@@ -161,7 +161,8 @@ function list-oci-helm-chart() {
 }
 
 # Secrets from macOS Keychain
-export GITHUB_TOKEN_MCP=$(security find-generic-password -a "$USER" -s "GITHUB_TOKEN_MCP" -w)
+# GitHub MCP reuses gh's OAuth token so there is no separate expiring PAT
+export GITHUB_TOKEN_MCP="$(gh auth token 2>/dev/null)"
 export CONTEXT7_API_KEY="$(security find-generic-password -a "$USER" -s context7-api-key -w 2>/dev/null)"
 
 # Prompt
