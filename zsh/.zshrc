@@ -78,9 +78,15 @@ function kctx() {
   if [[ -z "$ctx" ]]; then
     ctx="$(KUBECONFIG="$HOME/.kube/config" command kubectl config get-contexts -o name | fzf --prompt="kube context> ")" || return 1
   fi
-  local shell_config="${TMPDIR:-/tmp}/kubeconfig-$$.yaml"
-  (umask 077 && KUBECONFIG="$HOME/.kube/config" command kubectl config view --minify --flatten --context "$ctx" >"$shell_config") || return 1
-  export KUBECONFIG="$shell_config"
+  if ! KUBECONFIG="$HOME/.kube/config" command kubectl config get-contexts "$ctx" >/dev/null 2>&1; then
+    echo "kctx: no context named $ctx" >&2
+    return 1
+  fi
+  # Only current-context lives in the per-shell file; clusters and credentials
+  # still come from ~/.kube/config, which kubectl merges in after it.
+  local pin_file="${TMPDIR:-/tmp}/kubeconfig-$$.yaml"
+  printf 'apiVersion: v1\nkind: Config\ncurrent-context: %s\n' "$ctx" >"$pin_file" || return 1
+  export KUBECONFIG="$pin_file:$HOME/.kube/config"
   echo "kube context: $ctx (this shell only)"
 }
 function _kctx_cleanup() {
